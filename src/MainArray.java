@@ -32,7 +32,7 @@ public class MainArray {
                     break;
                 case "save":
                     resume = new Resume();
-                    resume.uuid = uuid;
+                    resume.setUuid(uuid);
                     ARRAY_STORAGE.save(resume);
                     printAll();
                     break;
@@ -62,8 +62,8 @@ public class MainArray {
         if (all.length == 0) {
             System.out.println("Empty");
         } else {
-            for (Resume r : all) {
-                System.out.println(r);
+            for (Resume resume : all) {
+                System.out.println(resume);
             }
         }
         System.out.println("----------------------------");

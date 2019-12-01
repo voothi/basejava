@@ -1,0 +1,13 @@
+. Исправить resume.uuid = uuid; прямое обращение. Нарушение принципа ООП - Инкапсуляция.
+. Названия классов - ?
+. return 0; ArrayStorage.java есть нуль, а в switch MainArray.java - нет. Почему?
+. Почему printAll не в ArrayStorage?
+Предложение: вынести в отдельную структуру
+. printAll() MainArray.java переменная all - ? Нет контекста у названия. В MainTestArrayStorage.java
+её нет.
+  . Дублирование кода printAll() в MainArray.java, MainTestArrayStorage.java
+. Название. Лучше поменять на create, судя по текущей реализации в коде. Иначе,
+Почему в save() создаем новый экземпляр объекта?
+                case "save":
+                    resume = new Resume();
+. get ArrayStorage.java @Overwrite toString(), кастомно, для вывода массива резюме.

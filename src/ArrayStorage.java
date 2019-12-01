@@ -2,12 +2,9 @@
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    Resume[] storage = new Resume[10000];
+    private Resume[] storage = new Resume[10000];
 
-    void clear() {
-    }
-
-    void save(Resume r) {
+    void save(Resume resume) {
     }
 
     Resume get(String uuid) {
@@ -17,14 +14,17 @@ public class ArrayStorage {
     void delete(String uuid) {
     }
 
+    int size() {
+        return 0;
+    }
+
+    void clear() {
+    }
+
     /**
      * @return array, contains only Resumes in storage (without null)
      */
     Resume[] getAll() {
-        return new Resume[0];
-    }
-
-    int size() {
-        return 0;
+            return new Resume[0];
     }
 }
