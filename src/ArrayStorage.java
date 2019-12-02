@@ -27,13 +27,14 @@ public class ArrayStorage {
      * @return объект Resume
      */
     Resume get(String uuid) {
-        int i;
-        for (i = 0; i < storage.length; i++) {
-            if (uuid.equals(storage[i].getUuid())) {
+        Resume resume = null;
+        for (Resume element : storage) {
+            if (element.getUuid().equals(uuid)) {
+                resume = element;
                 break;
             }
         }
-        return storage[i];
+        return resume;
     }
 
     /**
