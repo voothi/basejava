@@ -1,16 +1,20 @@
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 /**
  * Array based storage for Resumes
  */
 public class ArrayStorage {
+    final static private int STORAGE_SIZE_CREATE = 10;
+    private int modCount = 0;
     private int counterElementsOfStorage;
     private Resume[] storage;
 
     public ArrayStorage() {
         counterElementsOfStorage = 0;
-        storage = new Resume[10];
+        storage = new Resume[STORAGE_SIZE_CREATE];
     }
 
     /**
@@ -42,7 +46,55 @@ public class ArrayStorage {
      * @param uuid
      */
     void delete(String uuid) {
+//        ArrayList<Integer> list = new ArrayList();
+//        list.remove(1);
+        int index = getIndex(uuid);
+        modCount++;
+        Resume oldValue = storage[index];
+        int numMoved = size - index - 1;
+        if (numMoved > 0)
+            System.arraycopy(elementData, index + 1, elementData, index,
+                    numMoved);
+        elementData[--size] = null; // clear to let GC do its work
 
+        return oldValue;
+    }
+
+//        rangeCheck(index);
+//
+//        modCount++;
+//        E oldValue = elementData(index);
+//
+//        int numMoved = size - index - 1;
+//        if (numMoved > 0)
+//            System.arraycopy(elementData, index + 1, elementData, index,
+//                    numMoved);
+//        elementData[--size] = null; // clear to let GC do its work
+//
+//        return oldValue;
+    }
+
+//    private void rangeCheck(int index) {
+//        if (index >= size)
+//            throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
+//    }
+//
+//    private String outOfBoundsMsg(int index) {
+//        return "Index: " + index + ", Size: " + size;
+//    }
+//
+//    E elementData(int index) {
+//        return (E) elementData[index];
+//    }
+
+    private int getIndex(String uuid) {
+        int i;
+        for (i = 0; i < counterElementsOfStorage; i++) {
+            if (uuid.equals(storage[i].getUuid())) {
+                return i;
+            }
+        }
+        return i;
     }
 
     /**
@@ -70,8 +122,6 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     Resume[] getAll() {
-        Resume[] resumeTest = Arrays.copyOfRange(storage, 0, counterElementsOfStorage);
-        System.out.println(Arrays.toString(resumeTest));
-        return new Resume[0];
+        return Arrays.copyOfRange(storage, 0, counterElementsOfStorage);
     }
 }
