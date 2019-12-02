@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Optional;
 
 /**
  * Array based storage for Resumes
@@ -29,10 +30,15 @@ public class ArrayStorage {
     Resume get(String uuid) {
         Resume resume = null;
         for (Resume element : storage) {
-            if (element.getUuid().equals(uuid)) {
+//            if (element.getUuid().equals(uuid)) {
+//                resume = element;
+//                break;
+//            }
+            if (uuid.equals(Optional.ofNullable(element.getUuid()).orElse(null))) {
                 resume = element;
                 break;
             }
+
         }
         return resume;
     }
