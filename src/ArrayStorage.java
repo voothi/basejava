@@ -1,16 +1,12 @@
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
 
 /**
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    final static private int STORAGE_SIZE_CREATE = 10;
-    private int modCount = 0;
-    private int counterElementsOfStorage;
+    final static private int STORAGE_SIZE_CREATE = 10000;
     private Resume[] storage;
+    private int counterElementsOfStorage;
 
     public ArrayStorage() {
         counterElementsOfStorage = 0;
@@ -18,7 +14,7 @@ public class ArrayStorage {
     }
 
     /**
-     * Вставляет в конец массива принимаемый элемент
+     * Inserts at the end of an array of receiving elements
      */
     void save(Resume resume) {
         storage[counterElementsOfStorage] = resume;
@@ -26,10 +22,7 @@ public class ArrayStorage {
     }
 
     /**
-     * Получение резюме из массива
-     *
-     * @param uuid принимает в качестве аргумента строку с идентификатором
-     * @return объект Resume
+     * Getting a summary from array
      */
     Resume get(String uuid) {
         for (int i = 0; i < counterElementsOfStorage; i++) {
@@ -41,51 +34,16 @@ public class ArrayStorage {
     }
 
     /**
-     * После удаления элемента, происходит смещение элементов.
-     *
-     * @param uuid
+     * After removal of the element is displaced to the left element in this position
      */
     void delete(String uuid) {
-//        ArrayList<Integer> list = new ArrayList();
-//        list.remove(1);
         int index = getIndex(uuid);
-        modCount++;
-        Resume oldValue = storage[index];
-        int numMoved = size - index - 1;
-        if (numMoved > 0)
-            System.arraycopy(elementData, index + 1, elementData, index,
-                    numMoved);
-        elementData[--size] = null; // clear to let GC do its work
-
-        return oldValue;
+        Resume[] storageOut = new Resume[storage.length - 1];
+        int remainingElements = storage.length - (index + 1);
+        System.arraycopy(storage, 0, storageOut, 0, index);
+        System.arraycopy(storage, index + 1, storageOut, index, remainingElements);
+        storage = storageOut;
     }
-
-//        rangeCheck(index);
-//
-//        modCount++;
-//        E oldValue = elementData(index);
-//
-//        int numMoved = size - index - 1;
-//        if (numMoved > 0)
-//            System.arraycopy(elementData, index + 1, elementData, index,
-//                    numMoved);
-//        elementData[--size] = null; // clear to let GC do its work
-//
-//        return oldValue;
-    }
-
-//    private void rangeCheck(int index) {
-//        if (index >= size)
-//            throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
-//    }
-//
-//    private String outOfBoundsMsg(int index) {
-//        return "Index: " + index + ", Size: " + size;
-//    }
-//
-//    E elementData(int index) {
-//        return (E) elementData[index];
-//    }
 
     private int getIndex(String uuid) {
         int i;
@@ -105,7 +63,6 @@ public class ArrayStorage {
     int size() {
         int sizeArrayStorageNotNull = 0;
         for (int i = 0; i < storage.length; i++) {
-//            System.out.println(storage[i]);
             if (storage[i] == null) {
                 continue;
             }
@@ -114,6 +71,9 @@ public class ArrayStorage {
         return sizeArrayStorageNotNull;
     }
 
+    /**
+     * Fills the storage null values
+     */
     void clear() {
         Arrays.fill(storage, null);
     }
