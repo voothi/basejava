@@ -61,14 +61,13 @@ public class ArrayStorage {
      * without holes (null).
      */
     int size() {
-        int sizeArrayStorageNotNull = 0;
-        for (int i = 0; i < storage.length; i++) {
+        int i;
+        for (i = 0; i < storage.length; i++) {
             if (storage[i] == null) {
-                continue;
+                return i;
             }
-            sizeArrayStorageNotNull++;
         }
-        return sizeArrayStorageNotNull;
+        return i;
     }
 
     /**
