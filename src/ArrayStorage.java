@@ -29,16 +29,11 @@ public class ArrayStorage {
      */
     Resume get(String uuid) {
         Resume resume = null;
-        for (Resume element : storage) {
-//            if (element.getUuid().equals(uuid)) {
-//                resume = element;
-//                break;
-//            }
-            if (uuid.equals(Optional.ofNullable(element.getUuid()).orElse(null))) {
-                resume = element;
+        for (int i = 0; i < counterElementsOfStorage; i++) {
+            if (storage[i].getUuid().equals(uuid)) {
+                resume = storage[i];
                 break;
             }
-
         }
         return resume;
     }

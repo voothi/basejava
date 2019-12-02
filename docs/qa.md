@@ -13,10 +13,10 @@ Process finished with exit code 1
 
 ### Код
 
-#### Класс
+Класс
 https://github.com/voothi/basejava/blob/e8f0bf45ffc8289970c19d48f2a4dcd17030af9e/src/ArrayStorage.java
 
-имеет метод
+имеет метод,
 
 ```java
 Resume get(String uuid) {
@@ -30,9 +30,17 @@ Resume get(String uuid) {
     return resume;
 }
 ```
-
-, который вызывается из метода main() в Классе (для тестирования)
+который вызывается из метода main() в Классе (для тестирования)
 https://github.com/voothi/basejava/blob/d8d4b370e9b9b7075ee3193eb1046fc37f891e5f/src/MainTestArrayStorage.java
 ```java
 System.out.println("Get dummy: " + ARRAY_STORAGE.get("dummy"));
 ```
+
+## Решения
+- Хранить количество реально добавленных объектов 
+    и при переборке массива через for 
+        до количества вставленных объектов
+- Flag "заполненности" чтобы сначала заполнить нулевые элементы
+***
+- Синтаксически if (uuid.equals(Optional.ofNullable(element.getUuid).orElse(null)) { ... }
+- Переход на ArrayList
