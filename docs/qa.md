@@ -28,7 +28,7 @@ Resume get(String uuid) {
         }
     }
     return resume;
-    }
+}
 ```
 
 , который вызывается из метода main() в Классе (для тестирования)
