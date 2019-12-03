@@ -4,83 +4,78 @@ import java.util.Arrays;
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    final static private int STORAGE_SIZE_CREATE = 10000;
+    private final static int LENGTH = 4;
+    private final static int SIZE_AFTER_CLEAR = 0;
     private Resume[] storage;
-    private int counterElementsOfStorage;
+    private int size;
 
     public ArrayStorage() {
-        counterElementsOfStorage = 0;
-        storage = new Resume[STORAGE_SIZE_CREATE];
+        storage = new Resume[LENGTH];
     }
 
-    /**
-     * Inserts at the end of an array of receiving elements
-     */
-    void save(Resume resume) {
-        storage[counterElementsOfStorage] = resume;
-        counterElementsOfStorage++;
+    public void save(Resume resume) {
+        storage[size] = resume;
+        size++;
     }
 
-    /**
-     * Getting a summary from array
-     */
-    Resume get(String uuid) {
-        for (int i = 0; i < counterElementsOfStorage; i++) {
-            if (uuid.equals(storage[i].getUuid())) {
+    public Resume get(String uuid) {
+        for (int i = 0; i < size; i++) {
+            if (uuid.toString().equals(storage[i].getUuid())) {
                 return storage[i];
             }
         }
         return null;
     }
 
+    public void delete(String uuid) {
+        if (isElementOfArray(uuid)) {
+            int index = getIndex(uuid);
+            System.arraycopy(storage, index + 1, storage, index, size - (index + 1));
+            if (size > 0) {
+                storage[size - 1] = null;
+                size--;
+            }
+        }
+    }
+
     /**
-     * After removal of the element is displaced to the left element in this position
+     * getSize
+     *
+     * @return size
      */
-    void delete(String uuid) {
-        int index = getIndex(uuid);
-        Resume[] storageOut = new Resume[storage.length - 1];
-        int remainingElements = storage.length - (index + 1);
-        System.arraycopy(storage, 0, storageOut, 0, index);
-        System.arraycopy(storage, index + 1, storageOut, index, remainingElements);
-        storage = storageOut;
+    public int size() {
+        return size;
+    }
+
+    public void clear() {
+        Arrays.fill(storage, null);
+        setSize(SIZE_AFTER_CLEAR);
+    }
+
+    public Resume[] getAll() {
+        return Arrays.copyOfRange(storage, 0, size);
     }
 
     private int getIndex(String uuid) {
         int i;
-        for (i = 0; i < counterElementsOfStorage; i++) {
-            if (uuid.equals(storage[i].getUuid())) {
+        for (i = 0; i < size; i++) {
+            if (uuid.toString().equals(storage[i].getUuid())) {
                 return i;
             }
         }
         return i;
     }
 
-    /**
-     * @return Size method returns the number of elements in the array,
-     * occupied by objects such Resume, with sequential filling,
-     * without holes (null).
-     */
-    int size() {
-        int i;
-        for (i = 0; i < storage.length; i++) {
-            if (storage[i] == null) {
-                return i;
+    public boolean isElementOfArray(String uuid) {
+        for (int i = 0; i < size; i++) {
+            if (uuid.toString().equals(storage[i].toString())) {
+                return true;
             }
         }
-        return i;
+        return false;
     }
 
-    /**
-     * Fills the storage null values
-     */
-    void clear() {
-        Arrays.fill(storage, null);
-    }
-
-    /**
-     * @return array, contains only Resumes in storage (without null)
-     */
-    Resume[] getAll() {
-        return Arrays.copyOfRange(storage, 0, counterElementsOfStorage);
+    public void setSize(int size) {
+        this.size = size;
     }
 }
