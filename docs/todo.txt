@@ -1,3 +1,8 @@
+?- isElementOfArray и getIndex делают одно и то же, просто возвращают разные значения. isElementOfArray  можно удалить
+: Заменить не удалось
++ setSize(SIZE_AFTER_CLEAR);
+просто size = 0
+***
 + STORAGE_SIZE_CREATE слово CREATE лишнее - это же переменная, а не метод. Глаголов в именах переменных быть не должно
 + counterElementsOfStorage
   можно просто counter или size
@@ -23,6 +28,8 @@ index  0 1 2 3
         <2 3 4
 mass  | |2|3|4|
 index  0 1 2 3
+
+
 
 
 
