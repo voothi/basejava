@@ -20,7 +20,7 @@ public class Resume {
         return uuid;
     }
 
-    public String toStringSuperclass() {
+    public String toStringSuper() {
         return super.toString();
     }
 }

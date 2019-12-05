@@ -8,6 +8,14 @@ public class Util {
         System.out.println("----------------------------");
     }
 
+    public static void printPresent () {
+        System.out.println("Present");
+    }
+
+    public static void printNotPresent () {
+        System.out.println("Not present");
+    }
+
     public static void printAll(ArrayStorage storage) {
         Resume[] resumes = storage.getAll();
         System.out.println("Print All Resumes from Storage:");

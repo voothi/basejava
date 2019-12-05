@@ -35,7 +35,8 @@ public class MainTestArrayStorage {
 
             System.out.println("");
             System.out.println("Get r1: " + ARRAY_STORAGE.get(r1.getUuid()));
-            System.out.println("Get dummy: " + ARRAY_STORAGE.get("dummy"));
+            System.out.println("Get dummy test:");
+            System.out.println("dummy: " + ARRAY_STORAGE.get("dummy"));
 
             System.out.println("");
             System.out.println("Size: " + ARRAY_STORAGE.size());
@@ -47,15 +48,7 @@ public class MainTestArrayStorage {
         // Test update() method
         {
             printTestTitle("Test update() method");
-
-            System.out.println("r2    uuid       : " + r2.getUuid());
-            System.out.println("r2    obj        : " + r2.toStringSuperclass());
-            System.out.println("r2new uuid       : " + r2new.getUuid());
-            System.out.println("r2new obj        : " + r2new.toStringSuperclass());
-            System.out.println("update - insert r2new object instead r2 object");
             ARRAY_STORAGE.update(r2new);
-            System.out.println("r2    uuid       : " + r2.getUuid());
-            System.out.println("r2    obj        : " + r2.toStringSuperclass());
             printAll(ARRAY_STORAGE);
         }
 
