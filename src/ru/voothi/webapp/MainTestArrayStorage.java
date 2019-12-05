@@ -22,6 +22,8 @@ public class MainTestArrayStorage {
         Resume r3 = new Resume();
         r3.setUuid("uuid3");
 
+        System.out.println(r1 == r2); //false
+
         // Test save(), get(), size(), printAll methods
         {
             printTestTitle("Test save(), get(), size(), printAll methods");
