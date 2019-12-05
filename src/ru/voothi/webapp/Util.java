@@ -23,7 +23,7 @@ public class Util {
             System.out.println("Storage is Empty");
         } else {
             for (Resume resume : resumes) {
-                System.out.println(resume);
+                System.out.println(  resume.toString() + " | " + resume.toStringSuper());
             }
         }
     }

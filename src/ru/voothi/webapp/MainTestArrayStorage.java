@@ -3,7 +3,7 @@ package ru.voothi.webapp;
 import ru.voothi.webapp.model.Resume;
 import ru.voothi.webapp.storage.ArrayStorage;
 
-import static ru.voothi.webapp.Util.*;
+import static ru.voothi.webapp.Util.printAll;
 import static ru.voothi.webapp.Util.printTestTitle;
 
 /**
@@ -48,14 +48,16 @@ public class MainTestArrayStorage {
         // Test update() method
         {
             printTestTitle("Test update() method");
+            System.out.println("New resume not present in storage\n" + r2new.getUuid() + " | " + r2new.toStringSuper());
+            System.out.println("Update " + r2new.getUuid() + " in storage...");
             ARRAY_STORAGE.update(r2new);
+            System.out.println("Update sucessful");
             printAll(ARRAY_STORAGE);
         }
 
         // Test delete() method
         {
             printTestTitle("Test delete() method");
-
             ARRAY_STORAGE.delete(r1.getUuid());
             printAll(ARRAY_STORAGE);
         }

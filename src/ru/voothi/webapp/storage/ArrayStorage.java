@@ -20,18 +20,9 @@ public class ArrayStorage {
     }
 
     public void update(Resume resume) {
-        if (isPresentInMemory(resume)) {
-            System.out.println("Resume " + resume.toString() + " Is Present In Memory");
-            System.out.println(resume.toStringSuper());
-        } else {
-            System.out.println("Resume " + resume.toString() + " Not Present In Memory");
-            System.out.println(resume.toStringSuper());
-        }
         int index = getIndex(resume.getUuid());
         if (index > 0) {
             storage[index] = resume;
-            System.out.println("!!!!");
-            System.out.println(storage[index].toStringSuper());
         } else {
             printNotPresent();
         }
