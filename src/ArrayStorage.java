@@ -13,7 +13,13 @@ public class ArrayStorage {
         storage = new Resume[LENGTH];
     }
 
+    public void update(Resume resume) {
+        //TODO check if Resume present
+//        System.out.println("ERROR");
+    }
+
     public void save(Resume resume) {
+        //TODO check if Resume not present
         storage[size] = resume;
         size++;
     }
@@ -28,6 +34,7 @@ public class ArrayStorage {
     }
 
     public void delete(String uuid) {
+        //TODO check if Resume present
         if (isElementOfArray(uuid)) {
             int index = getIndex(uuid);
             System.arraycopy(storage, index + 1, storage, index, size - (index + 1));
