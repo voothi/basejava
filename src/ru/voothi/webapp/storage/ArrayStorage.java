@@ -59,6 +59,8 @@ public class ArrayStorage {
         if (size > 0) {
             storage[size - 1] = null;
             size--;
+        } else {
+            printNotPresent();
         }
     }
 
