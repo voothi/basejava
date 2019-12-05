@@ -4,8 +4,8 @@ import java.util.Arrays;
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    private final static int LENGTH = 10000;
-    private final static int SIZE = 0;
+    private static final int LENGTH = 10000;
+    private static final int SIZE = 0;
     private Resume[] storage;
     private int size;
 
