@@ -3,13 +3,13 @@
 + Настройте IDEA на автоматическое удаление неиспользуемых импортов
 + Поместите классы в пакеты, как это показано в уроке.
 По пакетам - см. Хорстманн Т1, 176 стр. Пакеты не связаны - это контейнеры. Пользуемся import.
-- Реализуйте и протестируйте ru.voothi.webapp.storage.ArrayStorage.update(ru.voothi.webapp.model.Resume resume)
++ Реализуйте и протестируйте ru.voothi.webapp.storage.ArrayStorage.update(ru.voothi.webapp.model.Resume resume)
 - Сделайте проверки:
-. в update/delete/get - резюме есть в storage?
-. в save- резюме нет в storage?
++ в update/delete/get - резюме есть в storage?
++ в save- резюме нет в storage?
 . сделайте в save проверку на переполнение
-выведите соответствующие предупреждения для всех, указанных выше проверок - System.out.println("ru.voothi.webapp.model.Resume ...")
-- Избавьтесь от дублирования в коде ru.voothi.webapp.storage.ArrayStorage
++ выведите соответствующие предупреждения для всех, указанных выше проверок - System.out.println("ru.voothi.webapp.model.Resume ...")
++ Избавьтесь от дублирования в коде ru.voothi.webapp.storage.ArrayStorage
 + Посмотрите на методы класса java.util.Arrays. Некоторые из них помогут упростить реализацию ваших методов clear() и getAll()
 ***
 ?- isElementOfArray и getIndex делают одно и то же, просто возвращают разные значения. isElementOfArray  можно удалить

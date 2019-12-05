@@ -29,9 +29,12 @@ public class ArrayStorage {
     }
 
     public void save(Resume resume) {
-        if (getIndex(resume.getUuid()) == -1) {
+        if (size >= LENGTH) {
+            System.out.println("There is no space in the storage for the new entry.");
+        } else if (getIndex(resume.getUuid()) == -1) {
             storage[size] = resume;
             size++;
+            System.out.println("Save " + resume + " : OK");
         } else {
             printPresent();
         }
@@ -61,8 +64,6 @@ public class ArrayStorage {
 
     /**
      * getSize
-     *
-     * @return size
      */
     public int size() {
         return size;
