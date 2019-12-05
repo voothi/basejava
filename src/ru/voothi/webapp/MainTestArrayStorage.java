@@ -19,10 +19,10 @@ public class MainTestArrayStorage {
         r1.setUuid("uuid1");
         Resume r2 = new Resume();
         r2.setUuid("uuid2");
+        Resume r2new = new Resume();
+        r2new.setUuid("uuid2");
         Resume r3 = new Resume();
         r3.setUuid("uuid3");
-
-        System.out.println(r1 == r2); //false
 
         // Test save(), get(), size(), printAll methods
         {
@@ -48,8 +48,12 @@ public class MainTestArrayStorage {
         {
             printTestTitle("Test update() method");
 
-            System.out.println("r2 before update(): " + r2.getUuid());
-            ARRAY_STORAGE.update(r1);
+            System.out.println("r2    uuid: " + r2.getUuid());
+            System.out.println("r2    obj:  " + r2);
+            System.out.println("r2new uuid: " + r2new.getUuid());
+            System.out.println("r2new obj : " + r2new.super.toString());
+            System.out.println("update: insert r2new object instead r2 object");
+            ARRAY_STORAGE.update(r2new);
             System.out.println("r2 after update() : " + r2.getUuid());
             printAll(ARRAY_STORAGE);
         }

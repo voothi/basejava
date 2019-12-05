@@ -9,8 +9,8 @@
 . в save- резюме нет в storage?
 . сделайте в save проверку на переполнение
 выведите соответствующие предупреждения для всех, указанных выше проверок - System.out.println("ru.voothi.webapp.model.Resume ...")
-. Избавьтесь от дублирования в коде ru.voothi.webapp.storage.ArrayStorage
-. Посмотрите на методы класса java.util.Arrays. Некоторые из них помогут упростить реализацию ваших методов clear() и getAll()
+- Избавьтесь от дублирования в коде ru.voothi.webapp.storage.ArrayStorage
++ Посмотрите на методы класса java.util.Arrays. Некоторые из них помогут упростить реализацию ваших методов clear() и getAll()
 ***
 ?- isElementOfArray и getIndex делают одно и то же, просто возвращают разные значения. isElementOfArray  можно удалить
 : Заменить не удалось

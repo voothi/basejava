@@ -86,9 +86,12 @@ public class ArrayStorage {
         return i;
     }
 
+    /**
+     * Implements a logical (not as link in memory) comparison of the objects on the field uuid
+     */
     public boolean isElementOfArray(String uuid) {
         for (int i = 0; i < size; i++) {
-            if (uuid.toString().equals(storage[i].toString())) {
+            if (uuid.toString().equals(storage[i].getUuid())) {
                 return true;
             }
         }

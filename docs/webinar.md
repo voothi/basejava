@@ -172,6 +172,8 @@ public
             при ошибке выводить err через sout
             return null;    
 ```
+?q: На что указывает объект типа String uuid > value = char[5]@460 объекта в debug
+
 
         
         
