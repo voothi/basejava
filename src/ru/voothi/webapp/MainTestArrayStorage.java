@@ -1,5 +1,10 @@
+package ru.voothi.webapp;
+
+import ru.voothi.webapp.model.Resume;
+import ru.voothi.webapp.storage.ArrayStorage;
+
 /**
- * Test for your ArrayStorage implementation
+ * Test for your ru.voothi.webapp.storage.ArrayStorage implementation
  */
 public class MainTestArrayStorage {
     private static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();

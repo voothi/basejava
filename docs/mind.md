@@ -2,7 +2,7 @@
 . CRUD на массивах
 
 
-. Resume get(String uuid)
+. ru.voothi.webapp.model.Resume get(String uuid)
 
 строка uuid объекта r1
 

@@ -1,3 +1,5 @@
+package ru.voothi.webapp.model;
+
 /**
  * Initial resume class
  */

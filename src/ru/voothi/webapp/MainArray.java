@@ -1,9 +1,14 @@
+package ru.voothi.webapp;
+
+import ru.voothi.webapp.model.Resume;
+import ru.voothi.webapp.storage.ArrayStorage;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- * Interactive test for ArrayStorage implementation
+ * Interactive test for ru.voothi.webapp.storage.ArrayStorage implementation
  * (just run, no need to understand)
  */
 public class MainArray {

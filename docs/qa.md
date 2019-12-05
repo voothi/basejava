@@ -4,8 +4,8 @@
 Get r1: uuid1
 Size: 3
 Exception in thread "main" java.lang.NullPointerException
-	at ArrayStorage.get(ArrayStorage.java:32)
-	at MainTestArrayStorage.main(MainTestArrayStorage.java:21)
+	at ru.voothi.webapp.storage.ArrayStorage.get(ru.voothi.webapp.storage.ArrayStorage.java:32)
+	at ru.voothi.webapp.MainTestArrayStorage.main(ru.voothi.webapp.MainTestArrayStorage.java:21)
 
 Process finished with exit code 1
 ```
@@ -14,14 +14,14 @@ Process finished with exit code 1
 ### Код
 
 Класс
-https://github.com/voothi/basejava/blob/e8f0bf45ffc8289970c19d48f2a4dcd17030af9e/src/ArrayStorage.java
+https://github.com/voothi/basejava/blob/e8f0bf45ffc8289970c19d48f2a4dcd17030af9e/src/ru.voothi.webapp.storage.ArrayStorage.java
 
 имеет метод,
 
 ```java
-Resume get(String uuid) {
-    Resume resume = null;
-    for (Resume element : storage) {
+ru.voothi.webapp.model.Resume get(String uuid) {
+    ru.voothi.webapp.model.Resume resume = null;
+    for (ru.voothi.webapp.model.Resume element : storage) {
         if (element.getUuid().equals(uuid)) {
             resume = element;
             break;
@@ -31,7 +31,7 @@ Resume get(String uuid) {
 }
 ```
 который вызывается из метода main() в Классе (для тестирования)
-https://github.com/voothi/basejava/blob/d8d4b370e9b9b7075ee3193eb1046fc37f891e5f/src/MainTestArrayStorage.java
+https://github.com/voothi/basejava/blob/d8d4b370e9b9b7075ee3193eb1046fc37f891e5f/src/ru.voothi.webapp.MainTestArrayStorage.java
 ```java
 System.out.println("Get dummy: " + ARRAY_STORAGE.get("dummy"));
 ```

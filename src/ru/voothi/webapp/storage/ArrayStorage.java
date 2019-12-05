@@ -1,3 +1,7 @@
+package ru.voothi.webapp.storage;
+
+import ru.voothi.webapp.model.Resume;
+
 import java.util.Arrays;
 
 /**
@@ -14,12 +18,12 @@ public class ArrayStorage {
     }
 
     public void update(Resume resume) {
-        //TODO check if Resume present
+        //TODO check if ru.voothi.webapp.model.Resume present
 //        System.out.println("ERROR");
     }
 
     public void save(Resume resume) {
-        //TODO check if Resume not present
+        //TODO check if ru.voothi.webapp.model.Resume not present
         storage[size] = resume;
         size++;
     }
@@ -34,7 +38,7 @@ public class ArrayStorage {
     }
 
     public void delete(String uuid) {
-        //TODO check if Resume present
+        //TODO check if ru.voothi.webapp.model.Resume present
         if (isElementOfArray(uuid)) {
             int index = getIndex(uuid);
             System.arraycopy(storage, index + 1, storage, index, size - (index + 1));
