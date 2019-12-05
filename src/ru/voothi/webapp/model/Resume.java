@@ -19,4 +19,8 @@ public class Resume {
     public String toString() {
         return uuid;
     }
+
+    public String toStringSuperclass() {
+        return super.toString();
+    }
 }

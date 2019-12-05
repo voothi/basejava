@@ -48,13 +48,14 @@ public class MainTestArrayStorage {
         {
             printTestTitle("Test update() method");
 
-            System.out.println("r2    uuid: " + r2.getUuid());
-            System.out.println("r2    obj:  " + r2);
-            System.out.println("r2new uuid: " + r2new.getUuid());
-            System.out.println("r2new obj : " + r2new.super.toString());
-            System.out.println("update: insert r2new object instead r2 object");
+            System.out.println("r2    uuid       : " + r2.getUuid());
+            System.out.println("r2    obj        : " + r2.toStringSuperclass());
+            System.out.println("r2new uuid       : " + r2new.getUuid());
+            System.out.println("r2new obj        : " + r2new.toStringSuperclass());
+            System.out.println("update - insert r2new object instead r2 object");
             ARRAY_STORAGE.update(r2new);
-            System.out.println("r2 after update() : " + r2.getUuid());
+            System.out.println("r2    uuid       : " + r2.getUuid());
+            System.out.println("r2    obj        : " + r2.toStringSuperclass());
             printAll(ARRAY_STORAGE);
         }
 
