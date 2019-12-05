@@ -7,6 +7,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import static ru.voothi.webapp.Util.printAll;
+
 /**
  * Interactive test for ru.voothi.webapp.storage.ArrayStorage implementation
  * (just run, no need to understand)
@@ -30,7 +32,7 @@ public class MainArray {
             }
             switch (params[0]) {
                 case "list":
-                    printAll();
+                    printAll(ARRAY_STORAGE);
                     break;
                 case "size":
                     System.out.println(ARRAY_STORAGE.size());
@@ -39,18 +41,18 @@ public class MainArray {
                     resume = new Resume();
                     resume.setUuid(uuid);
                     ARRAY_STORAGE.save(resume);
-                    printAll();
+                    printAll(ARRAY_STORAGE);
                     break;
                 case "delete":
                     ARRAY_STORAGE.delete(uuid);
-                    printAll();
+                    printAll(ARRAY_STORAGE);
                     break;
                 case "get":
                     System.out.println(ARRAY_STORAGE.get(uuid));
                     break;
                 case "clear":
                     ARRAY_STORAGE.clear();
-                    printAll();
+                    printAll(ARRAY_STORAGE);
                     break;
                 case "exit":
                     return;
@@ -61,16 +63,5 @@ public class MainArray {
         }
     }
 
-    private static void printAll() {
-        Resume[] all = ARRAY_STORAGE.getAll();
-        System.out.println("----------------------------");
-        if (all.length == 0) {
-            System.out.println("Empty");
-        } else {
-            for (Resume resume : all) {
-                System.out.println(resume);
-            }
-        }
-        System.out.println("----------------------------");
-    }
+
 }

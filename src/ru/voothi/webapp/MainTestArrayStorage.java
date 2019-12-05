@@ -3,6 +3,9 @@ package ru.voothi.webapp;
 import ru.voothi.webapp.model.Resume;
 import ru.voothi.webapp.storage.ArrayStorage;
 
+import static ru.voothi.webapp.Util.*;
+import static ru.voothi.webapp.Util.printTestTitle;
+
 /**
  * Test for your ru.voothi.webapp.storage.ArrayStorage implementation
  */
@@ -10,6 +13,8 @@ public class MainTestArrayStorage {
     private static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();
 
     public static void main(String[] args) {
+
+        // Initialize the variable is for testing
         Resume r1 = new Resume();
         r1.setUuid("uuid1");
         Resume r2 = new Resume();
@@ -17,27 +22,51 @@ public class MainTestArrayStorage {
         Resume r3 = new Resume();
         r3.setUuid("uuid3");
 
-        ARRAY_STORAGE.save(r1);
-        ARRAY_STORAGE.save(r2);
-        ARRAY_STORAGE.save(r3);
+        // Test save(), get(), size(), printAll methods
+        {
+            printTestTitle("Test save(), get(), size(), printAll methods");
 
-        System.out.println("Get r1: " + ARRAY_STORAGE.get(r1.getUuid()));
-        System.out.println("Size: " + ARRAY_STORAGE.size());
-        System.out.println("Get dummy: " + ARRAY_STORAGE.get("dummy"));
+            ARRAY_STORAGE.save(r1);
+            ARRAY_STORAGE.save(r2);
+            ARRAY_STORAGE.save(r3);
+            System.out.println("Save: OK");
 
-        printAll();
-        ARRAY_STORAGE.delete(r1.getUuid());
-        printAll();
-        ARRAY_STORAGE.clear();
-        printAll();
+            System.out.println("");
+            System.out.println("Get r1: " + ARRAY_STORAGE.get(r1.getUuid()));
+            System.out.println("Get dummy: " + ARRAY_STORAGE.get("dummy"));
 
-        System.out.println("Size: " + ARRAY_STORAGE.size());
-    }
+            System.out.println("");
+            System.out.println("Size: " + ARRAY_STORAGE.size());
 
-    private static void printAll() {
-        System.out.println("\nGet All");
-        for (Resume resume : ARRAY_STORAGE.getAll()) {
-            System.out.println(resume);
+            System.out.println("");
+            printAll(ARRAY_STORAGE);
+        }
+
+        // Test update() method
+        {
+            printTestTitle("Test update() method");
+
+            System.out.println("r2 before update(): " + r2.getUuid());
+            ARRAY_STORAGE.update(r1);
+            System.out.println("r2 after update() : " + r2.getUuid());
+            printAll(ARRAY_STORAGE);
+        }
+
+        // Test delete() method
+        {
+            printTestTitle("Test delete() method");
+
+            ARRAY_STORAGE.delete(r1.getUuid());
+            printAll(ARRAY_STORAGE);
+        }
+
+        // Test clear() method
+        {
+            printTestTitle("Test clear() method");
+
+            ARRAY_STORAGE.clear();
+            printAll(ARRAY_STORAGE);
+            System.out.println("Size: " + ARRAY_STORAGE.size());
         }
     }
 }

@@ -18,17 +18,25 @@ public class ArrayStorage {
     }
 
     public void update(Resume resume) {
+
         //TODO check if ru.voothi.webapp.model.Resume present
 //        System.out.println("ERROR");
+        if (isElementOfArray(resume.getUuid())) {
+            int index = getIndex(resume.getUuid());
+            storage[index] = resume;
+        }
     }
 
     public void save(Resume resume) {
+
         //TODO check if ru.voothi.webapp.model.Resume not present
         storage[size] = resume;
         size++;
     }
 
     public Resume get(String uuid) {
+
+        //TODO check if ru.voothi.webapp.model.Resume present
         for (int i = 0; i < size; i++) {
             if (uuid.toString().equals(storage[i].getUuid())) {
                 return storage[i];
@@ -38,6 +46,7 @@ public class ArrayStorage {
     }
 
     public void delete(String uuid) {
+
         //TODO check if ru.voothi.webapp.model.Resume present
         if (isElementOfArray(uuid)) {
             int index = getIndex(uuid);
