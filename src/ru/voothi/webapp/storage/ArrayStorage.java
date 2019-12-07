@@ -4,27 +4,17 @@ import ru.voothi.webapp.model.Resume;
 
 import java.util.Arrays;
 
-import static ru.voothi.webapp.Util.*;
-
-/**
- * Array based storage for Resumes
- */
 public class ArrayStorage {
     private static final int LENGTH = 10_000;
     private Resume[] storage = new Resume[LENGTH];
-    ;
     private int size;
-
-    {
-        printNotPresent();
-    }
 
     public void update(Resume resume) {
         int index = getIndex(resume.getUuid());
         if (index > 0) {
             storage[index] = resume;
         } else {
-            printNotPresent();
+            System.out.println("Not present");
         }
     }
 
@@ -35,7 +25,7 @@ public class ArrayStorage {
             storage[size] = resume;
             size++;
         } else {
-            printPresent();
+            System.out.println("Present");
         }
     }
 
@@ -51,20 +41,14 @@ public class ArrayStorage {
     public void delete(String uuid) {
         int index = getIndex(uuid);
         if (index > -1) {
-//            System.arraycopy(storage, index + 1, storage, index, size - (index + 1));
             storage[index] = storage[size - 1];
-            if (size > 0) {
-                storage[size - 1] = null;
-                size--;
-            } else {
-                printNotPresent();
-            }
+            storage[size - 1] = null;
+            size--;
+        } else {
+            System.out.println("Not present");
         }
     }
 
-    /**
-     * getSize
-     */
     public int size() {
         return size;
     }
@@ -78,11 +62,6 @@ public class ArrayStorage {
         return Arrays.copyOfRange(storage, 0, size);
     }
 
-    /**
-     * If logical present resume or not present
-     *
-     * @return -1 Not present, > -1 Present
-     */
     private int getIndex(String uuid) {
         for (int i = 0; i < size; i++) {
             if (uuid.equals(storage[i].getUuid())) {

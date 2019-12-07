@@ -1,8 +1,5 @@
 package ru.voothi.webapp.model;
 
-/**
- * Initial resume class
- */
 public class Resume {
 
     private String uuid;

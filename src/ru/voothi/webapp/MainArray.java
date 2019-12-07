@@ -7,12 +7,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import static ru.voothi.webapp.Util.printAll;
-
-/**
- * Interactive test for ru.voothi.webapp.storage.ArrayStorage implementation
- * (just run, no need to understand)
- */
 public class MainArray {
     private static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();
 
@@ -32,7 +26,7 @@ public class MainArray {
             }
             switch (params[0]) {
                 case "list":
-                    printAll(ARRAY_STORAGE);
+                    printAll();
                     break;
                 case "size":
                     System.out.println(ARRAY_STORAGE.size());
@@ -41,24 +35,24 @@ public class MainArray {
                     resume = new Resume();
                     resume.setUuid(uuid);
                     ARRAY_STORAGE.save(resume);
-                    printAll(ARRAY_STORAGE);
+                    printAll();
                     break;
                 case "update":
                     resume = new Resume();
                     resume.setUuid(uuid);
                     ARRAY_STORAGE.update(resume);
-                    printAll(ARRAY_STORAGE);
+                    printAll();
                     break;
                 case "delete":
                     ARRAY_STORAGE.delete(uuid);
-                    printAll(ARRAY_STORAGE);
+                    printAll();
                     break;
                 case "get":
                     System.out.println(ARRAY_STORAGE.get(uuid));
                     break;
                 case "clear":
                     ARRAY_STORAGE.clear();
-                    printAll(ARRAY_STORAGE);
+                    printAll();
                     break;
                 case "exit":
                     return;
@@ -69,5 +63,15 @@ public class MainArray {
         }
     }
 
-
+    private static void printAll() {
+        Resume[] resumes = ARRAY_STORAGE.getAll();
+        System.out.println("Print All Resumes from Storage:");
+        if (resumes.length == 0) {
+            System.out.println("Storage is Empty");
+        } else {
+            for (Resume element : resumes) {
+                System.out.println(element.toString());
+            }
+        }
+    }
 }
