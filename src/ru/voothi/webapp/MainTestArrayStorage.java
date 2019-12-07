@@ -7,8 +7,6 @@ public class MainTestArrayStorage {
     private static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();
 
     public static void main(String[] args) {
-
-        // Initialize the variable is for testing
         Resume r1 = new Resume();
         r1.setUuid("uuid1");
         Resume r2 = new Resume();
