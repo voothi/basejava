@@ -4,20 +4,15 @@ import ru.voothi.webapp.model.Resume;
 
 import java.util.Arrays;
 
-import static ru.voothi.webapp.Util.printNotPresent;
-import static ru.voothi.webapp.Util.printPresent;
+import static ru.voothi.webapp.Util.*;
 
 /**
  * Array based storage for Resumes
  */
 public class ArrayStorage {
     private static final int LENGTH = 10_000;
-    private Resume[] storage;
+    private Resume[] storage = new Resume[LENGTH];;
     private int size;
-
-    public ArrayStorage() {
-        storage = new Resume[LENGTH];
-    }
 
     public void update(Resume resume) {
         int index = getIndex(resume.getUuid());
@@ -34,7 +29,6 @@ public class ArrayStorage {
         } else if (getIndex(resume.getUuid()) == -1) {
             storage[size] = resume;
             size++;
-            System.out.println("Save " + resume + " : OK");
         } else {
             printPresent();
         }
@@ -72,7 +66,7 @@ public class ArrayStorage {
     }
 
     public void clear() {
-        Arrays.fill(storage, null);
+        Arrays.fill(storage,0 , size,null);
         size = 0;
     }
 
@@ -92,14 +86,5 @@ public class ArrayStorage {
             }
         }
         return -1;
-    }
-
-    private boolean isPresentInMemory(Resume resume) {
-        for (int i = 0; i < size; i++) {
-            if (resume.equals(storage[i])) {
-                return true;
-            }
-        }
-        return false;
     }
 }
