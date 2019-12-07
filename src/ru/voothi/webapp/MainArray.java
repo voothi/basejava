@@ -20,7 +20,7 @@ public class MainArray {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Resume resume;
         while (true) {
-            System.out.print("Введите одну из команд - (list | save uuid | delete uuid | get uuid | clear | exit): ");
+            System.out.print("Введите одну из команд - (list | save uuid | update uuid | delete uuid | get uuid | clear | exit): ");
             String[] params = reader.readLine().trim().toLowerCase().split(" ");
             if (params.length < 1 || params.length > 2) {
                 System.out.println("Неверная команда.");
@@ -41,6 +41,12 @@ public class MainArray {
                     resume = new Resume();
                     resume.setUuid(uuid);
                     ARRAY_STORAGE.save(resume);
+                    printAll(ARRAY_STORAGE);
+                    break;
+                case "update":
+                    resume = new Resume();
+                    resume.setUuid(uuid);
+                    ARRAY_STORAGE.update(resume);
                     printAll(ARRAY_STORAGE);
                     break;
                 case "delete":
