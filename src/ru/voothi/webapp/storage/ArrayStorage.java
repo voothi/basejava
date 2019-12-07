@@ -11,7 +11,7 @@ import static ru.voothi.webapp.Util.printPresent;
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    private static final int LENGTH = 10000;
+    private static final int LENGTH = 10_000;
     private Resume[] storage;
     private int size;
 

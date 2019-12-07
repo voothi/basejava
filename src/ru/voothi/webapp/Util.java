@@ -8,7 +8,7 @@ public class Util {
         System.out.println("----------------------------");
     }
 
-    public static void printPresent() {
+    public static void printPresent(    ) {
         System.out.println("Present");
     }
 
@@ -23,7 +23,7 @@ public class Util {
             System.out.println("Storage is Empty");
         } else {
             for (Resume resume : resumes) {
-                System.out.println(resume.toString() + " | " + resume.toStringSuper());
+                System.out.println(resume.toString());
             }
         }
     }

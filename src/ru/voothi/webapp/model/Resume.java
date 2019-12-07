@@ -19,8 +19,4 @@ public class Resume {
     public String toString() {
         return uuid;
     }
-
-    public String toStringSuper() {
-        return super.toString();
-    }
 }

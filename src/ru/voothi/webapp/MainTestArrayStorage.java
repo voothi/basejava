@@ -47,7 +47,7 @@ public class MainTestArrayStorage {
         // Test update() method
         {
             printTestTitle("Test update() method");
-            System.out.println("New resume not present in storage\n" + r2new.getUuid() + " | " + r2new.toStringSuper());
+            System.out.println("New resume not present in storage\n" + r2new.getUuid());
             System.out.println("Update " + r2new.getUuid() + " in storage...");
             ARRAY_STORAGE.update(r2new);
             System.out.println("Update sucessful");
