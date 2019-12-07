@@ -1,1 +1,1 @@
-BaseJava. Web-application "Base summary". Written on Java.
+BaseJava. Web-application "Base summary". Written in Java.
