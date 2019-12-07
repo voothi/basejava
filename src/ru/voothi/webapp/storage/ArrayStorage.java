@@ -11,7 +11,7 @@ public class ArrayStorage {
 
     public void update(Resume resume) {
         int index = getIndex(resume.getUuid());
-        if (index > 0) {
+        if (index > -1) {
             storage[index] = resume;
         } else {
             System.out.println("Not present");
@@ -34,8 +34,9 @@ public class ArrayStorage {
         if (index > -1) {
             return storage[index];
         } else {
-            return null;
+            System.out.println("Not present");
         }
+        return null;
     }
 
     public void delete(String uuid) {
