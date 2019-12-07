@@ -50,12 +50,15 @@ public class ArrayStorage {
 
     public void delete(String uuid) {
         int index = getIndex(uuid);
-        System.arraycopy(storage, index + 1, storage, index, size - (index + 1));
-        if (size > 0) {
-            storage[size - 1] = null;
-            size--;
-        } else {
-            printNotPresent();
+        if (index > -1) {
+//            System.arraycopy(storage, index + 1, storage, index, size - (index + 1));
+            storage[index] = storage[size - 1];
+            if (size > 0) {
+                storage[size - 1] = null;
+                size--;
+            } else {
+                printNotPresent();
+            }
         }
     }
 
