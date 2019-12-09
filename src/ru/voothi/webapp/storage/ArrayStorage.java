@@ -4,7 +4,7 @@ import ru.voothi.webapp.model.Resume;
 
 import java.util.Arrays;
 
-public class ArrayStorage {
+public class ArrayStorage implements Storage {
     private static final int LENGTH = 10_000;
     private Resume[] storage = new Resume[LENGTH];
     private int size;
@@ -25,7 +25,7 @@ public class ArrayStorage {
             storage[size] = resume;
             size++;
         } else {
-            System.out.println("Present");
+            System.out.println("Resume " + resume.getUuid() + "present");
         }
     }
 
@@ -34,7 +34,7 @@ public class ArrayStorage {
         if (index > -1) {
             return storage[index];
         } else {
-            System.out.println("Not present");
+            System.out.println("Resume " + uuid + "not present");
         }
         return null;
     }
@@ -46,7 +46,7 @@ public class ArrayStorage {
             storage[size - 1] = null;
             size--;
         } else {
-            System.out.println("Not present");
+            System.out.println("Resume " + uuid + "not present");
         }
     }
 

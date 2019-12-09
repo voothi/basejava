@@ -2,13 +2,14 @@ package ru.voothi.webapp;
 
 import ru.voothi.webapp.model.Resume;
 import ru.voothi.webapp.storage.ArrayStorage;
+import ru.voothi.webapp.storage.Storage;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class MainArray {
-    private static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();
+    private static final Storage ARRAY_STORAGE = new ArrayStorage();
 
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
