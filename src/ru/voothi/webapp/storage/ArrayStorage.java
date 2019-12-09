@@ -4,20 +4,7 @@ import ru.voothi.webapp.model.Resume;
 
 import java.util.Arrays;
 
-public class ArrayStorage implements Storage {
-    private static final int LENGTH = 10_000;
-    private Resume[] storage = new Resume[LENGTH];
-    private int size;
-
-    public void update(Resume resume) {
-        int index = getIndex(resume.getUuid());
-        if (index > -1) {
-            storage[index] = resume;
-        } else {
-            System.out.println("Not present");
-        }
-    }
-
+public class ArrayStorage extends AbstractArrayStorage {
     public void save(Resume resume) {
         if (size >= LENGTH) {
             System.out.println("There is no space in the storage for the new entry.");
@@ -29,14 +16,13 @@ public class ArrayStorage implements Storage {
         }
     }
 
-    public Resume get(String uuid) {
-        int index = getIndex(uuid);
+    public void update(Resume resume) {
+        int index = getIndex(resume.getUuid());
         if (index > -1) {
-            return storage[index];
+            storage[index] = resume;
         } else {
-            System.out.println("Resume " + uuid + "not present");
+            System.out.println("Resume " + resume.getUuid() + " not present");
         }
-        return null;
     }
 
     public void delete(String uuid) {
@@ -46,12 +32,8 @@ public class ArrayStorage implements Storage {
             storage[size - 1] = null;
             size--;
         } else {
-            System.out.println("Resume " + uuid + "not present");
+            System.out.println("Resume " + uuid + " not present");
         }
-    }
-
-    public int size() {
-        return size;
     }
 
     public void clear() {
@@ -63,7 +45,7 @@ public class ArrayStorage implements Storage {
         return Arrays.copyOfRange(storage, 0, size);
     }
 
-    private int getIndex(String uuid) {
+    protected int getIndex(String uuid) {
         for (int i = 0; i < size; i++) {
             if (uuid.equals(storage[i].getUuid())) {
                 return i;
