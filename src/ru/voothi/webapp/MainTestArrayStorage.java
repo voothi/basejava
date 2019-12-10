@@ -2,10 +2,11 @@ package ru.voothi.webapp;
 
 import ru.voothi.webapp.model.Resume;
 import ru.voothi.webapp.storage.ArrayStorage;
-import ru.voothi.webapp.storage.Storage;
+
+import java.util.Arrays;
 
 public class MainTestArrayStorage {
-    private static final Storage ARRAY_STORAGE = new ArrayStorage();
+    private static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();
 
     public static void main(String[] args) {
         Resume r1 = new Resume();
@@ -43,6 +44,13 @@ public class MainTestArrayStorage {
             ARRAY_STORAGE.update(r2new);
             System.out.println("Update sucessful");
             printAll();
+        }
+
+        {
+            System.out.println("----------------------------");
+            System.out.println("Test binarySearch r2:");
+            System.out.println("----------------------------");
+            System.out.println(Arrays.binarySearch(ARRAY_STORAGE.storage, 0, ARRAY_STORAGE.size(), r2));
         }
 
         {
