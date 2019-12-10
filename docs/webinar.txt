@@ -354,7 +354,19 @@ Ctrl Alt Left, Right - перемещение по вызовам
 
 ?q: int mid = (low + high) >>> 1;
 
+Resume ошибка cast
+    Интерфейс Comparable
 
+$hack: IDEA
+Ctrl N - ищем интерфейс Comparable
+
+15 15
+compareTo
+-1
+0
+> 0
+
+имплементируем Comparable в Resume
 
 
 

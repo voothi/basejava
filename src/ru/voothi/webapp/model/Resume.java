@@ -1,6 +1,6 @@
 package ru.voothi.webapp.model;
 
-public class Resume {
+public class Resume implements Comparable<Resume> {
 
     private String uuid;
 
@@ -30,5 +30,10 @@ public class Resume {
     @Override
     public int hashCode() {
         return uuid.hashCode();
+    }
+
+    @Override
+    public int compareTo(Resume resume) {
+        return uuid.compareTo(resume.uuid);
     }
 }
