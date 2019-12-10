@@ -2,6 +2,8 @@ package ru.voothi.webapp.storage;
 
 import ru.voothi.webapp.model.Resume;
 
+import java.util.Arrays;
+
 public class SortedArrayStorage extends AbstractArrayStorage {
     public void save(Resume resume) {
     }
@@ -20,6 +22,8 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     }
 
     protected int getIndex(String uuid) {
-        return -1;
+        Resume resume = new Resume();
+        resume.setUuid(uuid);
+        return Arrays.binarySearch(storage, 0, size, resume);
     }
 }
