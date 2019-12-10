@@ -368,6 +368,18 @@ compareTo
 
 имплементируем Comparable в Resume
 
+проверять перед checkin изменения
+Alt Left Right перемещение
+
+не передавать пробелы в классах, - отдельно
+
+21 50 как делать реверт
+
+force push на master делать в prod нельзя
+
+insert binary search
+    подсказка
+
 
 
 
