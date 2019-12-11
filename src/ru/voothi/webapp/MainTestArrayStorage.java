@@ -18,9 +18,9 @@ public class MainTestArrayStorage {
         Resume r3 = new Resume();
         r3.setUuid("uuid3");
 
-//        ARRAY_STORAGE.storage[0] = r1;
+        ARRAY_STORAGE.storage[0] = r1;
 //        ARRAY_STORAGE.storage[1] = r2;
-        ARRAY_STORAGE.size = 0;
+        ARRAY_STORAGE.size = 1;
 
 //        {
 //            System.out.println("----------------------------");
