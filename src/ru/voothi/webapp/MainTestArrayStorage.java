@@ -36,42 +36,38 @@ public class MainTestArrayStorage {
             System.out.println("----------------------------");
 
             ARRAY_STORAGE.save(r1);
-            ARRAY_STORAGE.save(r2);
-            ARRAY_STORAGE.save(r3);
-//            ARRAY_STORAGE.save(r4);
+//            ARRAY_STORAGE.save(r2);
+//            ARRAY_STORAGE.save(r3);
+            ARRAY_STORAGE.save(r4);
             ARRAY_STORAGE.save(r5);
-//            ARRAY_STORAGE.save(r5);
 //            ARRAY_STORAGE.save(r2new);
-//            ARRAY_STORAGE.save(r5);
 
             System.out.println("Get r1: " + ARRAY_STORAGE.get(r1.getUuid()));
             System.out.println("Get dummy test:");
             System.out.println("dummy: " + ARRAY_STORAGE.get("dummy"));
-
             System.out.println("\nSize: " + ARRAY_STORAGE.size() + "\n");
             printAll();
         }
-//
-//        {
-//            System.out.println("----------------------------");
-//            System.out.println("Test update() method");
-//            System.out.println("----------------------------");
-//            System.out.println("New resume not present in storage\n" + r2new.getUuid());
-//            System.out.println("Update " + r2new.getUuid() + " in storage...");
-//            ARRAY_STORAGE.update(r2new);
-//            System.out.println("Update sucessful");
-//            printAll();
-//        }
-//
+
+        {
+            System.out.println("----------------------------");
+            System.out.println("Test update() method");
+            System.out.println("----------------------------");
+            String testUuid = r2new.getUuid();
+            System.out.println("Get resume " + testUuid + ": " + ARRAY_STORAGE.get(testUuid));
+            System.out.println("Update resume: ");
+            ARRAY_STORAGE.update(r2new);
+            printAll();
+        }
+
         {
             System.out.println("----------------------------");
             System.out.println("Test delete() method");
             System.out.println("----------------------------");
-//            ARRAY_STORAGE.delete(r1.getUuid());
-            ARRAY_STORAGE.delete(r4.getUuid());
+            ARRAY_STORAGE.delete(r1.getUuid());
             printAll();
         }
-//
+
         {
             System.out.println("----------------------------");
             System.out.println("Test clear() method");

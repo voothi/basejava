@@ -37,9 +37,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     // get() in abstract class
 
-    public void update(Resume resume) {
-
-    }
+    // update() in abstract class
 
     public void delete(String uuid) {
         int index = getIndex(uuid);

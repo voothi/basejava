@@ -16,18 +16,11 @@ public class ArrayStorage extends AbstractArrayStorage {
 
     // get() in abstract class
 
-    public void update(Resume resume) {
-        int index = getIndex(resume.getUuid());
-        if (index > -1) {
-            storage[index] = resume;
-        } else {
-            System.out.println("Resume " + resume.getUuid() + " not present");
-        }
-    }
+    // update() in abstract class
 
     public void delete(String uuid) {
         int index = getIndex(uuid);
-        if (index > -1) {
+        if (index >= 0) {
             storage[index] = storage[size - 1];
             storage[size - 1] = null;
             size--;

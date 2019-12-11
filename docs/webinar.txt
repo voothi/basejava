@@ -380,6 +380,7 @@ force push на master делать в prod нельзя
 insert binary search
     подсказка
 
-
+$hack: IDEA
+Ctrl Shift R - Replace замена по проекту
 
 
