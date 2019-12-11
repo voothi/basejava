@@ -14,10 +14,6 @@ public class ArrayStorage extends AbstractArrayStorage {
         }
     }
 
-    // get() in abstract class
-
-    // update() in abstract class
-
     public void delete(String uuid) {
         int index = getIndex(uuid);
         if (index >= 0) {
@@ -28,12 +24,6 @@ public class ArrayStorage extends AbstractArrayStorage {
             System.out.println("Resume " + uuid + " not present");
         }
     }
-
-    // size() in abstract class
-
-    // clear() in abstract class
-
-    // getAll() in abstract class
 
     protected int getIndex(String uuid) {
         for (int i = 0; i < size; i++) {

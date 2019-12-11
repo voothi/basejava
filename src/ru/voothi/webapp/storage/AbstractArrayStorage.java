@@ -5,10 +5,9 @@ import ru.voothi.webapp.model.Resume;
 import java.util.Arrays;
 
 public abstract class AbstractArrayStorage implements Storage {
-    //    protected static final int LENGTH = 10_000;
-    protected static final int LENGTH = 4;
-    public Resume[] storage = new Resume[LENGTH];
-    public int size;
+    protected static final int LENGTH = 10_000;
+    protected Resume[] storage = new Resume[LENGTH];
+    protected int size;
 
     public Resume get(String uuid) {
         int index = getIndex(uuid);
