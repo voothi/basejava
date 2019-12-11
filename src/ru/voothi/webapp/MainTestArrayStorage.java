@@ -13,8 +13,8 @@ public class MainTestArrayStorage {
         r2.setUuid("uuid2");
         Resume r2new = new Resume();
         r2new.setUuid("uuid2");
-//        Resume r3 = new Resume();
-//        r3.setUuid("uuid3");
+        Resume r3 = new Resume();
+        r3.setUuid("uuid3");
 
         ARRAY_STORAGE.storage[0] = r1;
         ARRAY_STORAGE.storage[1] = r2;
@@ -26,7 +26,7 @@ public class MainTestArrayStorage {
 //            System.out.println("----------------------------");
 
 //            ARRAY_STORAGE.save(r1);
-            ARRAY_STORAGE.save(r2new);
+            ARRAY_STORAGE.save(r3);
 //            ARRAY_STORAGE.save(r3);
 
 //            System.out.println("Get r1: " + ARRAY_STORAGE.get(r1.getUuid()));

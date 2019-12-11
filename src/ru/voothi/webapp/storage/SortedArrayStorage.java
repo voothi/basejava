@@ -8,14 +8,14 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     public void save(Resume resume) {
         String uuid = resume.getUuid();
         int index = getIndex(uuid);
-        int insert = -index - 1;
         if (index >= 0) {
             System.out.println("Resume " + uuid + " present");
         }
+        int insert = -index - 1;
         if (index < 0) {
-            if (index == -1) {
+            if (insert == 0) {
                 System.out.println("Insert in fist, index " + index + " insert " + insert);
-            } else if (index == -size) {
+            } else if (insert == size) {
                 System.out.println("Insert in end, index " + index + " insert " + insert);
             } else {
                 System.out.println("Insert in mid, index " + index + " insert " + insert);
