@@ -16,6 +16,8 @@ public class ArrayStorage extends AbstractArrayStorage {
         }
     }
 
+    // get() in abstract class
+
     public void update(Resume resume) {
         int index = getIndex(resume.getUuid());
         if (index > -1) {
@@ -40,6 +42,8 @@ public class ArrayStorage extends AbstractArrayStorage {
         Arrays.fill(storage, 0, size, null);
         size = 0;
     }
+
+    // size() in abstract class
 
     public Resume[] getAll() {
         return Arrays.copyOfRange(storage, 0, size);

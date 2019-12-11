@@ -6,15 +6,10 @@ import java.util.Arrays;
 
 public class SortedArrayStorage extends AbstractArrayStorage {
     public void save(Resume resume) {
-        if (size >= LENGTH) {
-            System.out.println("There is no space in the storage for the new entry.");
-        } else if (getIndex(resume.getUuid()) == -1) {
-            storage[size] = resume;
-            size++;
-        } else {
-            System.out.println("Resume " + resume.getUuid() + "present");
-        }
+
     }
+
+    // get() in abstract class
 
     public void update(Resume resume) {
     }
@@ -24,6 +19,8 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     public void clear() {
     }
+
+    // size() in abstract class
 
     public Resume[] getAll() {
         return new Resume[0];
