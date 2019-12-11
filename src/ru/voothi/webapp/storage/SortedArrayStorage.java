@@ -19,8 +19,12 @@ public class SortedArrayStorage extends AbstractArrayStorage {
                 size++;
             } else if (insert == size) {
                 System.out.println("Insert in end, index " + index + " insert " + insert);
+                storage[size] = resume;
+                size++;
             } else {
                 System.out.println("Insert in mid, index " + index + " insert " + insert);
+
+                size++;
             }
         }
     }
