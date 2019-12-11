@@ -11,11 +11,12 @@ public class SortedArrayStorage extends AbstractArrayStorage {
         } else {
             String uuid = resume.getUuid();
             int index = getIndex(uuid);
+
             if (index >= 0) {
                 System.out.println("Resume " + uuid + " present");
-            }
-            if (index < 0) {
+            } else {
                 int insert = -index - 1;
+
                 if (insert == 0) {
                     System.out.println("Insert in fist, index " + index + " insert " + insert);
                     storage[insert] = resume;
