@@ -72,14 +72,14 @@ public class MainTestArrayStorage {
             printAll();
         }
 //
-//        {
-//            System.out.println("----------------------------");
-//            System.out.println("Test clear() method");
-//            System.out.println("----------------------------");
-//            ARRAY_STORAGE.clear();
-//            printAll();
-//            System.out.println("Size: " + ARRAY_STORAGE.size());
-//        }
+        {
+            System.out.println("----------------------------");
+            System.out.println("Test clear() method");
+            System.out.println("----------------------------");
+            ARRAY_STORAGE.clear();
+            printAll();
+            System.out.println("Size: " + ARRAY_STORAGE.size());
+        }
     }
 
     private static void printAll() {

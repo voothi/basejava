@@ -38,6 +38,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     // get() in abstract class
 
     public void update(Resume resume) {
+
     }
 
     public void delete(String uuid) {
@@ -53,10 +54,9 @@ public class SortedArrayStorage extends AbstractArrayStorage {
         }
     }
 
-    public void clear() {
-    }
-
     // size() in abstract class
+
+    // clear() in abstract class
 
     // getAll() in abstract class
 

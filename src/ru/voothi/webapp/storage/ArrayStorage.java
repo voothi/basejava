@@ -2,8 +2,6 @@ package ru.voothi.webapp.storage;
 
 import ru.voothi.webapp.model.Resume;
 
-import java.util.Arrays;
-
 public class ArrayStorage extends AbstractArrayStorage {
     public void save(Resume resume) {
         if (size >= LENGTH) {
@@ -38,12 +36,9 @@ public class ArrayStorage extends AbstractArrayStorage {
         }
     }
 
-    public void clear() {
-        Arrays.fill(storage, 0, size, null);
-        size = 0;
-    }
-
     // size() in abstract class
+
+    // clear() in abstract class
 
     // getAll() in abstract class
 
