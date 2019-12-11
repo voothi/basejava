@@ -23,7 +23,10 @@ public class SortedArrayStorage extends AbstractArrayStorage {
                 size++;
             } else {
                 System.out.println("Insert in mid, index " + index + " insert " + insert);
-
+                int length = (size + 1) - (insert + 1);
+                System.arraycopy(storage, insert, storage, insert + 1, length);
+                storage[insert] = null;
+                storage[insert] = resume;
                 size++;
             }
         }
