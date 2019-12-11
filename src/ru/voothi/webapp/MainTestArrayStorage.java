@@ -19,22 +19,25 @@ public class MainTestArrayStorage {
         r3.setUuid("uuid3");
         Resume r4 = new Resume();
         r4.setUuid("uuid4");
+        Resume r5 = new Resume();
+        r5.setUuid("uuid5");
 
-//        ARRAY_STORAGE.storage[0] = r1;
-//        ARRAY_STORAGE.storage[1] = r3;
-//        ARRAY_STORAGE.storage[2] = r4;
-//        ARRAY_STORAGE.size = 3;
+        ARRAY_STORAGE.storage[0] = r1;
+        ARRAY_STORAGE.storage[1] = r3;
+        ARRAY_STORAGE.storage[2] = r4;
+        ARRAY_STORAGE.storage[3] = r5;
+        ARRAY_STORAGE.size = 3;
 
         {
             System.out.println("----------------------------");
             System.out.println("Test save(), get(), size(), printAll methods");
             System.out.println("----------------------------");
 
-            ARRAY_STORAGE.save(r1);
-//            ARRAY_STORAGE.save(r2);
-            ARRAY_STORAGE.save(r3);
-            ARRAY_STORAGE.save(r4);
-            ARRAY_STORAGE.save(r2new);
+//            ARRAY_STORAGE.save(r1);
+            ARRAY_STORAGE.save(r2);
+//            ARRAY_STORAGE.save(r3);
+//            ARRAY_STORAGE.save(r4);
+//            ARRAY_STORAGE.save(r2new);
 
 //            System.out.println("Get r1: " + ARRAY_STORAGE.get(r1.getUuid()));
 //            System.out.println("Get dummy test:");

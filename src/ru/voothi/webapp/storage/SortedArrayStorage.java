@@ -6,28 +6,32 @@ import java.util.Arrays;
 
 public class SortedArrayStorage extends AbstractArrayStorage {
     public void save(Resume resume) {
-        String uuid = resume.getUuid();
-        int index = getIndex(uuid);
-        if (index >= 0) {
-            System.out.println("Resume " + uuid + " present");
-        }
-        if (index < 0) {
-            int insert = -index - 1;
-            if (insert == 0) {
-                System.out.println("Insert in fist, index " + index + " insert " + insert);
-                storage[insert] = resume;
-                size++;
-            } else if (insert == size) {
-                System.out.println("Insert in end, index " + index + " insert " + insert);
-                storage[size] = resume;
-                size++;
-            } else {
-                System.out.println("Insert in mid, index " + index + " insert " + insert);
-                int length = (size + 1) - (insert + 1);
-                System.arraycopy(storage, insert, storage, insert + 1, length);
-                storage[insert] = null;
-                storage[insert] = resume;
-                size++;
+        if (size >= LENGTH) {
+            System.out.println("There is no space in the storage for the new entry.");
+        } else {
+            String uuid = resume.getUuid();
+            int index = getIndex(uuid);
+            if (index >= 0) {
+                System.out.println("Resume " + uuid + " present");
+            }
+            if (index < 0) {
+                int insert = -index - 1;
+                if (insert == 0) {
+                    System.out.println("Insert in fist, index " + index + " insert " + insert);
+                    storage[insert] = resume;
+                    size++;
+                } else if (insert == size) {
+                    System.out.println("Insert in end, index " + index + " insert " + insert);
+                    storage[size] = resume;
+                    size++;
+                } else {
+                    System.out.println("Insert in mid, index " + index + " insert " + insert);
+                    int length = (size + 1) - (insert + 1);
+                    System.arraycopy(storage, insert, storage, insert + 1, length);
+                    storage[insert] = null;
+                    storage[insert] = resume;
+                    size++;
+                }
             }
         }
     }
