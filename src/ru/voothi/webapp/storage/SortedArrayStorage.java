@@ -6,7 +6,21 @@ import java.util.Arrays;
 
 public class SortedArrayStorage extends AbstractArrayStorage {
     public void save(Resume resume) {
-
+        String uuid = resume.getUuid();
+        int index = getIndex(uuid);
+        int insert = -index - 1;
+        if (index >= 0) {
+            System.out.println("Resume " + uuid + " present");
+        }
+        if (index < 0) {
+            if (index == -1) {
+                System.out.println("Insert in fist, index " + index + " insert " + insert);
+            } else if (index == -size) {
+                System.out.println("Insert in end, index " + index + " insert " + insert);
+            } else {
+                System.out.println("Insert in mid, index " + index + " insert " + insert);
+            }
+        }
     }
 
     // get() in abstract class

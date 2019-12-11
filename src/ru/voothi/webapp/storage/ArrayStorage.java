@@ -12,7 +12,7 @@ public class ArrayStorage extends AbstractArrayStorage {
             storage[size] = resume;
             size++;
         } else {
-            System.out.println("Resume " + resume.getUuid() + "present");
+            System.out.println("Resume " + resume.getUuid() + " present");
         }
     }
 
