@@ -84,6 +84,7 @@ delete()
 clear()
 getAll()
 
+! LENGTH = 10_000
 
 ## Ревью
 Resume
