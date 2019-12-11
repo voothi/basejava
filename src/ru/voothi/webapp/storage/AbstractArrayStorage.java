@@ -2,6 +2,8 @@ package ru.voothi.webapp.storage;
 
 import ru.voothi.webapp.model.Resume;
 
+import java.util.Arrays;
+
 public abstract class AbstractArrayStorage implements Storage {
     //    protected static final int LENGTH = 10_000;
     protected static final int LENGTH = 4;
@@ -20,6 +22,10 @@ public abstract class AbstractArrayStorage implements Storage {
 
     public int size() {
         return size;
+    }
+
+    public Resume[] getAll() {
+        return Arrays.copyOfRange(storage, 0, size);
     }
 
     protected abstract int getIndex(String uuid);

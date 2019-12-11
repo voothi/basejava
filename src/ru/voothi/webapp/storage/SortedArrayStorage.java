@@ -11,22 +11,20 @@ public class SortedArrayStorage extends AbstractArrayStorage {
         } else {
             String uuid = resume.getUuid();
             int index = getIndex(uuid);
-
             if (index >= 0) {
                 System.out.println("Resume " + uuid + " present");
             } else {
                 int insert = -index - 1;
-
                 if (insert == 0 && (storage[insert + 1] == null)) {
-                    System.out.println("Insert in fist, index " + index + " insert " + insert);
+                    System.out.println("Insert " + uuid + " in fist, index " + index + " insert " + insert);
                     storage[insert] = resume;
                     size++;
                 } else if (insert == size) {
-                    System.out.println("Insert in end, index " + index + " insert " + insert);
+                    System.out.println("Insert " + uuid + " in end, index " + index + " insert " + insert);
                     storage[size] = resume;
                     size++;
                 } else {
-                    System.out.println("Insert in mid, index " + index + " insert " + insert);
+                    System.out.println("Insert " + uuid + " in mid, index " + index + " insert " + insert);
                     int length = (size + 1) - (insert + 1);
                     System.arraycopy(storage, insert, storage, insert + 1, length);
                     storage[insert] = null;
@@ -43,6 +41,16 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     }
 
     public void delete(String uuid) {
+        int index = getIndex(uuid);
+        if (index >= 0) {
+            int insert = index;
+            int length = ((size + 1) - 1) - (insert + 1);
+            System.arraycopy(storage, insert + 1, storage, insert, length);
+            storage[size - 1] = null;
+            size--;
+        } else {
+            System.out.println("Resume " + uuid + " not present");
+        }
     }
 
     public void clear() {
@@ -50,9 +58,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     // size() in abstract class
 
-    public Resume[] getAll() {
-        return new Resume[0];
-    }
+    // getAll() in abstract class
 
     protected int getIndex(String uuid) {
         Resume resume = new Resume();

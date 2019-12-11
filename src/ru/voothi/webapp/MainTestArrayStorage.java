@@ -35,7 +35,7 @@ public class MainTestArrayStorage {
             System.out.println("Test save(), get(), size(), printAll methods");
             System.out.println("----------------------------");
 
-//            ARRAY_STORAGE.save(r1);
+            ARRAY_STORAGE.save(r1);
             ARRAY_STORAGE.save(r2);
             ARRAY_STORAGE.save(r3);
 //            ARRAY_STORAGE.save(r4);
@@ -44,12 +44,12 @@ public class MainTestArrayStorage {
 //            ARRAY_STORAGE.save(r2new);
 //            ARRAY_STORAGE.save(r5);
 
-//            System.out.println("Get r1: " + ARRAY_STORAGE.get(r1.getUuid()));
-//            System.out.println("Get dummy test:");
-//            System.out.println("dummy: " + ARRAY_STORAGE.get("dummy"));
-//
-//            System.out.println("\nSize: " + ARRAY_STORAGE.size() + "\n");
-//            printAll();
+            System.out.println("Get r1: " + ARRAY_STORAGE.get(r1.getUuid()));
+            System.out.println("Get dummy test:");
+            System.out.println("dummy: " + ARRAY_STORAGE.get("dummy"));
+
+            System.out.println("\nSize: " + ARRAY_STORAGE.size() + "\n");
+            printAll();
         }
 //
 //        {
@@ -63,13 +63,14 @@ public class MainTestArrayStorage {
 //            printAll();
 //        }
 //
-//        {
-//            System.out.println("----------------------------");
-//            System.out.println("Test delete() method");
-//            System.out.println("----------------------------");
+        {
+            System.out.println("----------------------------");
+            System.out.println("Test delete() method");
+            System.out.println("----------------------------");
 //            ARRAY_STORAGE.delete(r1.getUuid());
-//            printAll();
-//        }
+            ARRAY_STORAGE.delete(r4.getUuid());
+            printAll();
+        }
 //
 //        {
 //            System.out.println("----------------------------");
