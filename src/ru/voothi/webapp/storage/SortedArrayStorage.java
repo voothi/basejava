@@ -40,6 +40,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
         }
     }
 
+    @Override
     protected int getIndex(String uuid) {
         Resume resume = new Resume();
         resume.setUuid(uuid);
