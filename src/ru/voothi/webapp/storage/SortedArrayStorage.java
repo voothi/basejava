@@ -17,7 +17,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
             } else {
                 int insert = -index - 1;
 
-                if (insert == 0) {
+                if (insert == 0 && (storage[insert + 1] == null)) {
                     System.out.println("Insert in fist, index " + index + " insert " + insert);
                     storage[insert] = resume;
                     size++;
