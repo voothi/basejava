@@ -16,15 +16,12 @@ public class SortedArrayStorage extends AbstractArrayStorage {
             } else {
                 int insert = -index - 1;
                 if (insert == 0 && (storage[insert + 1] == null)) {
-                    System.out.println("Insert " + uuid + " in fist, index " + index + " insert " + insert);
                     storage[insert] = resume;
                     size++;
                 } else if (insert == size) {
-                    System.out.println("Insert " + uuid + " in end, index " + index + " insert " + insert);
                     storage[size] = resume;
                     size++;
                 } else {
-                    System.out.println("Insert " + uuid + " in mid, index " + index + " insert " + insert);
                     int length = (size + 1) - (insert + 1);
                     System.arraycopy(storage, insert, storage, insert + 1, length);
                     storage[insert] = null;
@@ -42,9 +39,8 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     public void delete(String uuid) {
         int index = getIndex(uuid);
         if (index >= 0) {
-            int insert = index;
-            int length = ((size + 1) - 1) - (insert + 1);
-            System.arraycopy(storage, insert + 1, storage, insert, length);
+            int length = ((size + 1) - 1) - (index + 1);
+            System.arraycopy(storage, index + 1, storage, index, length);
             storage[size - 1] = null;
             size--;
         } else {
