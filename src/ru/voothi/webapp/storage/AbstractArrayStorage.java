@@ -14,8 +14,9 @@ public abstract class AbstractArrayStorage implements Storage {
         int index = getIndex(uuid);
         if (size >= LENGTH) {
             System.out.println("There is no space in the storage for the new entry.");
+        } else {
+            insertByIndex(resume, index);
         }
-        insertByIndex(resume, index);
     }
 
     public Resume get(String uuid) {
