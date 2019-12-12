@@ -34,6 +34,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     protected void deleteByIndex(int index) {
         int length = size - (index + 1);
         System.arraycopy(storage, index + 1, storage, index, length);
+        storage[size - 1] = null;
         size--;
     }
 }
