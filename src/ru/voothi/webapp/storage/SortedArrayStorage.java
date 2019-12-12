@@ -24,7 +24,6 @@ public class SortedArrayStorage extends AbstractArrayStorage {
             } else {
                 int length = size - insert;
                 System.arraycopy(storage, insert, storage, insert + 1, length);
-                storage[insert] = null;
                 storage[insert] = resume;
                 size++;
             }
