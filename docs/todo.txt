@@ -9,7 +9,7 @@
 + storage[insert] = null; - лишние действие
 + int length = ((size + 1) - 1) - (index + 1); -    size - (index + 1) или size - index - 1
 используйте паттерн Шаблонный метод
-- для избавления от дублирования кода перенеси методы save, delete в AbstractArrayStorage из ArrayStorage и SortedArrayStorage, а часть кода что отличается реализуй на подобии getIndex
++ для избавления от дублирования кода перенеси методы save, delete в AbstractArrayStorage из ArrayStorage и SortedArrayStorage, а часть кода что отличается реализуй на подобии getIndex
 + когда переопределяешь(реализуешь) методы, не забывай ставить над ними аннотацию @Override, это защитит от синтаксических ошибок в случае рефакторинга кода
 
 ## Занятие 3

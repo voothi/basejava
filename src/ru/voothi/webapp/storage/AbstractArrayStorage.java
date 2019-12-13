@@ -15,7 +15,20 @@ public abstract class AbstractArrayStorage implements Storage {
         if (size >= LENGTH) {
             System.out.println("There is no space in the storage for the new entry.");
         } else {
-            insertByIndex(resume, index);
+            int insert = -index - 1;
+            if (index >= 0) {
+                System.out.println("Resume " + resume.getUuid() + " present");
+            } else if (index == -1) {
+                insertByIndex(resume, size);
+            } else {
+                if (insert == size) {
+                    insertByIndex(resume, insert);
+                } else {
+                    int length = size - insert;
+                    System.arraycopy(storage, insert, storage, insert + 1, length);
+                    insertByIndex(resume, insert);
+                }
+            }
         }
     }
 
@@ -60,9 +73,12 @@ public abstract class AbstractArrayStorage implements Storage {
         return Arrays.copyOfRange(storage, 0, size);
     }
 
-    protected abstract int getIndex(String uuid);
+    protected void insertByIndex(Resume resume, int index) {
+        storage[size] = resume;
+        size++;
+    }
 
-    protected abstract void insertByIndex(Resume resume, int index);
+    protected abstract int getIndex(String uuid);
 
     protected abstract void deleteByIndex(int index);
 }

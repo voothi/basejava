@@ -1,7 +1,5 @@
 package ru.voothi.webapp.storage;
 
-import ru.voothi.webapp.model.Resume;
-
 public class ArrayStorage extends AbstractArrayStorage {
     @Override
     protected int getIndex(String uuid) {
@@ -11,16 +9,6 @@ public class ArrayStorage extends AbstractArrayStorage {
             }
         }
         return -1;
-    }
-
-    @Override
-    protected void insertByIndex(Resume resume, int index) {
-        if (index == -1) {
-            storage[size] = resume;
-            size++;
-        } else {
-            System.out.println("Resume " + resume.getUuid() + " present");
-        }
     }
 
     @Override
