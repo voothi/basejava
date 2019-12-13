@@ -19,4 +19,18 @@ public class SortedArrayStorage extends AbstractArrayStorage {
         storage[size - 1] = null;
         size--;
     }
+
+    @Override
+    protected void insertByIndex(Resume resume, int index) {
+        int insert = -index - 1;
+        if (insert == size) {
+            storage[size] = resume;
+            size++;
+        } else {
+            int length = size - insert;
+            System.arraycopy(storage, insert, storage, insert + 1, length);
+            storage[insert] = resume;
+            size++;
+        }
+    }
 }
