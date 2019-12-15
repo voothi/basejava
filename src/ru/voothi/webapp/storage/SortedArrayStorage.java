@@ -16,8 +16,6 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     protected void deleteByIndex(int index) {
         int length = size - (index + 1);
         System.arraycopy(storage, index + 1, storage, index, length);
-        storage[size - 1] = null;
-        size--;
     }
 
     @Override
@@ -25,12 +23,10 @@ public class SortedArrayStorage extends AbstractArrayStorage {
         int insert = -index - 1;
         if (insert == size) {
             storage[size] = resume;
-            size++;
         } else {
             int length = size - insert;
             System.arraycopy(storage, insert, storage, insert + 1, length);
             storage[insert] = resume;
-            size++;
         }
     }
 }
