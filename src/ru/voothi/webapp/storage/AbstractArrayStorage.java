@@ -1,5 +1,8 @@
 package ru.voothi.webapp.storage;
 
+import ru.voothi.webapp.exception.ExistStorageException;
+import ru.voothi.webapp.exception.NotExistStorageException;
+import ru.voothi.webapp.exception.StorageException;
 import ru.voothi.webapp.model.Resume;
 
 import java.util.Arrays;
@@ -13,9 +16,9 @@ public abstract class AbstractArrayStorage implements Storage {
         String uuid = resume.getUuid();
         int index = getIndex(uuid);
         if (size >= LENGTH) {
-            System.out.println("There is no space in the storage for the new entry.");
+            throw new StorageException("There is no space in the storage for the new entry.", uuid);
         } else if (index >= 0) {
-            System.out.println("Resume " + resume.getUuid() + " present");
+            throw new ExistStorageException(uuid);
         } else {
             insertByIndex(resume, index);
             size++;
@@ -27,9 +30,8 @@ public abstract class AbstractArrayStorage implements Storage {
         if (index >= 0) {
             return storage[index];
         } else {
-            System.out.println("Resume " + uuid + " not present");
+            throw new NotExistStorageException(uuid);
         }
-        return null;
     }
 
     public void update(Resume resume) {
@@ -37,7 +39,7 @@ public abstract class AbstractArrayStorage implements Storage {
         if (index >= 0) {
             storage[index] = resume;
         } else {
-            System.out.println("Resume " + resume.getUuid() + " not present");
+            throw new NotExistStorageException(resume.getUuid());
         }
     }
 
@@ -48,7 +50,7 @@ public abstract class AbstractArrayStorage implements Storage {
             storage[size - 1] = null;
             size--;
         } else {
-            System.out.println("Resume " + uuid + " not present");
+            throw new NotExistStorageException(uuid);
         }
     }
 
