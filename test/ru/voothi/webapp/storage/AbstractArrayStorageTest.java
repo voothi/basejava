@@ -3,6 +3,7 @@ package ru.voothi.webapp.storage;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import ru.voothi.webapp.exception.NotExistStorageException;
 import ru.voothi.webapp.model.Resume;
 
 public class AbstractArrayStorageTest {
@@ -46,5 +47,10 @@ public class AbstractArrayStorageTest {
 
     @Test
     public void getAll() {
+    }
+
+    @Test(expected = NotExistStorageException.class)
+    public void getNotExist() {
+        storage.get("dummy");
     }
 }
