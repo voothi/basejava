@@ -8,8 +8,8 @@ import ru.voothi.webapp.exception.NotExistStorageException;
 import ru.voothi.webapp.exception.StorageException;
 import ru.voothi.webapp.model.Resume;
 
-import static junit.framework.Assert.assertTrue;
 import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertSame;
 
 public abstract class AbstractArrayStorageTest {
     private static final String UUID_1 = "uuid1";
@@ -52,7 +52,7 @@ public abstract class AbstractArrayStorageTest {
     public void update() {
         Resume resume1new = new Resume(UUID_1);
         storage.update(resume1new);
-        assertTrue(resume1new == storage.get(UUID_1));
+        assertSame(resume1new, storage.get(UUID_1));
     }
 
     @Test(expected = NotExistStorageException.class)
