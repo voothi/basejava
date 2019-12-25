@@ -49,14 +49,13 @@ public abstract class AbstractArrayStorageTest {
 
     @Test(expected = StorageException.class)
     public void saveOverflow() {
+        storage.clear();
         try {
-            System.out.println("Fill storage");
-            for (int i = 4; i <= AbstractArrayStorage.LENGTH; i++) {
+            for (int i = 0; i < AbstractArrayStorage.LENGTH; i++) {
                 storage.save(new Resume());
             }
         } catch (StorageException e) {
-            Assert.fail();
-            storage.clear();
+            Assert.fail(e.getMessage());
         }
         storage.save(new Resume());
     }
@@ -111,7 +110,8 @@ public abstract class AbstractArrayStorageTest {
     @Test
     public void getAll() {
         Resume[] resumesActual = storage.getAll();
-        Resume[] resumesExpected = {storage.get(UUID_1), storage.get(UUID_2), storage.get(UUID_3)};
+        assertEquals(3, resumesActual.length);
+        Resume[] resumesExpected = {RESUME_1, RESUME_2, RESUME_3};
         assertArrayEquals(resumesExpected, resumesActual);
     }
 
