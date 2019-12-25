@@ -49,14 +49,14 @@ public abstract class AbstractArrayStorageTest {
 
     @Test(expected = StorageException.class)
     public void saveOverflow() {
-        storage.clear();
         try {
-            System.out.println( );
+            System.out.println("Fill storage");
             for (int i = 4; i <= AbstractArrayStorage.LENGTH; i++) {
                 storage.save(new Resume());
             }
         } catch (StorageException e) {
             Assert.fail();
+            storage.clear();
         }
         storage.save(new Resume());
     }
