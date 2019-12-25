@@ -10,6 +10,7 @@ import ru.voothi.webapp.model.Resume;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertSame;
+import static org.junit.Assert.assertArrayEquals;
 
 public abstract class AbstractArrayStorageTest {
     private static final String UUID_1 = "uuid1";
@@ -75,11 +76,9 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void getAll() {
-        Resume[] resumes = storage.getAll();
-        assertEquals(3, resumes.length);
-        assertEquals(RESUME_1, resumes[0]);
-        assertEquals(RESUME_2, resumes[1]);
-        assertEquals(RESUME_3, resumes[2]);
+        Resume[] resumesActual = storage.getAll();
+        Resume[] resumesExpected = {storage.get(UUID_1), storage.get(UUID_2), storage.get(UUID_3)};
+        assertArrayEquals(resumesExpected, resumesActual);
     }
 
     @Test(expected = ExistStorageException.class)
