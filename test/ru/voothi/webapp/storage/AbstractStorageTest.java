@@ -12,7 +12,7 @@ import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertSame;
 import static org.junit.Assert.assertArrayEquals;
 
-public abstract class AbstractArrayStorageTest {
+public abstract class AbstractStorageTest {
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
@@ -23,7 +23,7 @@ public abstract class AbstractArrayStorageTest {
     private static final Resume RESUME_4 = new Resume(UUID_4);
     private Storage storage;
 
-    protected AbstractArrayStorageTest(Storage storage) {
+    protected AbstractStorageTest(Storage storage) {
         this.storage = storage;
     }
 

@@ -1,57 +1,41 @@
 package ru.voothi.webapp.storage;
 
-import ru.voothi.webapp.exception.ExistStorageException;
-import ru.voothi.webapp.exception.NotExistStorageException;
 import ru.voothi.webapp.exception.StorageException;
 import ru.voothi.webapp.model.Resume;
 
 import java.util.Arrays;
 
-public abstract class AbstractArrayStorage implements Storage {
+public abstract class AbstractArrayStorage extends AbstractStorage {
     protected static final int LENGTH = 10_000;
     protected Resume[] storage = new Resume[LENGTH];
     protected int size;
 
-    public void save(Resume resume) {
+    @Override
+    protected void doSave(Resume resume, Object index) {
         String uuid = resume.getUuid();
-        int index = getIndex(uuid);
         if (size >= LENGTH) {
             throw new StorageException("There is no space in the storage for the new entry.", uuid);
-        } else if (index >= 0) {
-            throw new ExistStorageException(uuid);
         } else {
-            insertByIndex(resume, index);
+            insertByIndex(resume, (Integer) index);
             size++;
         }
     }
 
-    public Resume get(String uuid) {
-        int index = getIndex(uuid);
-        if (index >= 0) {
-            return storage[index];
-        } else {
-            throw new NotExistStorageException(uuid);
-        }
+    @Override
+    public Resume doGet(Object index) {
+        return storage[(Integer) index];
     }
 
-    public void update(Resume resume) {
-        int index = getIndex(resume.getUuid());
-        if (index >= 0) {
-            storage[index] = resume;
-        } else {
-            throw new NotExistStorageException(resume.getUuid());
-        }
+    @Override
+    protected void doUpdate(Resume resume, Object index) {
+        storage[(Integer) index] = resume;
     }
 
-    public void delete(String uuid) {
-        int index = getIndex(uuid);
-        if (index >= 0) {
-            deleteByIndex(index);
-            storage[size - 1] = null;
-            size--;
-        } else {
-            throw new NotExistStorageException(uuid);
-        }
+    @Override
+    public void doDelete(Object index) {
+        deleteByIndex((Integer) index);
+        storage[size - 1] = null;
+        size--;
     }
 
     public int size() {
@@ -67,7 +51,12 @@ public abstract class AbstractArrayStorage implements Storage {
         return Arrays.copyOfRange(storage, 0, size);
     }
 
-    protected abstract int getIndex(String uuid);
+    @Override
+    protected boolean isExist(Object index) {
+        return (Integer) index >= 0;
+    }
+
+    protected abstract Integer getSearchKey(String uuid);
 
     protected abstract void deleteByIndex(int index);
 
