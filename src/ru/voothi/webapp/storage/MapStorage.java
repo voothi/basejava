@@ -31,12 +31,12 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected void doUpdate(Resume resume, Object searchKey) {
-
+        map.put((String) searchKey, resume);
     }
 
     @Override
     protected void doDelete(Object searchKey) {
-
+        map.remove(searchKey);
     }
 
     @Override
@@ -46,11 +46,11 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     public void clear() {
-
+        map.clear();
     }
 
     @Override
     public Resume[] getAll() {
-        return new Resume[0];
+        return map.values().toArray(new Resume[map.size()]);
     }
 }
