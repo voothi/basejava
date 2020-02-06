@@ -56,8 +56,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         return (Integer) index >= 0;
     }
 
-    protected abstract Integer getSearchKey(String uuid);
-
     protected abstract void deleteByIndex(int index);
 
     protected abstract void insertByIndex(Resume resume, int index);

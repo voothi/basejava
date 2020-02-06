@@ -27,8 +27,6 @@ public abstract class AbstractStorage implements Storage {
         doDelete(searchKey);
     }
 
-    //delete size();
-
     private Object getExistedSearchKey(String uuid) {
         Object searchKey = getSearchKey(uuid);
         if (!isExist(searchKey)) {
@@ -44,9 +42,6 @@ public abstract class AbstractStorage implements Storage {
         }
         return searchKey;
     }
-    //delete clear()
-
-    //delete getAll()
 
     protected abstract Object getSearchKey(String uuid);
 
