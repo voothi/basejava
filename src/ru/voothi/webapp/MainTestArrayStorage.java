@@ -3,6 +3,8 @@ package ru.voothi.webapp;
 import ru.voothi.webapp.model.Resume;
 import ru.voothi.webapp.storage.SortedArrayStorage;
 
+import java.util.List;
+
 public class MainTestArrayStorage {
     private static final SortedArrayStorage ARRAY_STORAGE = new SortedArrayStorage();
 
@@ -65,12 +67,12 @@ public class MainTestArrayStorage {
     }
 
     private static void printAll() {
-        Resume[] resumes = ARRAY_STORAGE.getAll();
+        List<Resume> list = ARRAY_STORAGE.getAllSorted();
         System.out.println("Print All Resumes from Storage:");
-        if (resumes.length == 0) {
+        if (list.size() == 0) {
             System.out.println("Storage is Empty");
         } else {
-            for (Resume element : resumes) {
+            for (Resume element : list) {
                 System.out.println(element.toString());
             }
         }

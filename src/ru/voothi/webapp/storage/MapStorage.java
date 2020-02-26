@@ -2,7 +2,9 @@ package ru.voothi.webapp.storage;
 
 import ru.voothi.webapp.model.Resume;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MapStorage extends AbstractStorage {
@@ -49,7 +51,7 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    public Resume[] getAll() {
-        return map.values().toArray(new Resume[map.size()]);
+    public List<Resume> doCopyAll() {
+        return Collections.emptyList();
     }
 }

@@ -6,9 +6,11 @@ import ru.voothi.webapp.exception.ExistStorageException;
 import ru.voothi.webapp.exception.NotExistStorageException;
 import ru.voothi.webapp.model.Resume;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertSame;
-import static org.junit.Assert.assertArrayEquals;
 
 public abstract class AbstractStorageTest {
     private static final String UUID_1 = "uuid1";
@@ -66,7 +68,7 @@ public abstract class AbstractStorageTest {
 
     @Test(expected = NotExistStorageException.class)
     public void updateNotExist() {
-        storage.update(new Resume("dummy",  "name upd"));
+        storage.update(new Resume("", "dummy"));
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -93,11 +95,10 @@ public abstract class AbstractStorageTest {
     }
 
     @Test
-    public void getAll() {
-        Resume[] resumesActual = storage.getAll();
-        assertEquals(3, resumesActual.length);
-        Resume[] resumesExpected = {RESUME_1, RESUME_2, RESUME_3};
-        assertArrayEquals(resumesExpected, resumesActual);
+    public void getAllSorted() {
+        List<Resume> list = storage.getAllSorted();
+        assertEquals(3, list.size());
+        assertEquals(list, Arrays.asList(RESUME_1, RESUME_2, RESUME_3));
     }
 
     private void assertSize(int size) {

@@ -7,6 +7,7 @@ import ru.voothi.webapp.storage.Storage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
 
 public class MainArray {
     private static final Storage ARRAY_STORAGE = new SortedArrayStorage();
@@ -63,9 +64,9 @@ public class MainArray {
     }
 
     private static void printAll() {
-        Resume[] resumes = ARRAY_STORAGE.getAll();
+        List<Resume> resumes = ARRAY_STORAGE.getAllSorted();
         System.out.println("Print All Resumes from Storage:");
-        if (resumes.length == 0) {
+        if (resumes.size() == 0) {
             System.out.println("Storage is Empty");
         } else {
             for (Resume element : resumes) {

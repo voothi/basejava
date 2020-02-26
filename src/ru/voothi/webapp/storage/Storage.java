@@ -2,6 +2,8 @@ package ru.voothi.webapp.storage;
 
 import ru.voothi.webapp.model.Resume;
 
+import java.util.List;
+
 public interface Storage {
     void save(Resume resume);
 
@@ -15,5 +17,5 @@ public interface Storage {
 
     void clear();
 
-    Resume[] getAll();
+    List<Resume> getAllSorted();
 }
