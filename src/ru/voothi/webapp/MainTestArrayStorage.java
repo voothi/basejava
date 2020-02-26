@@ -7,15 +7,15 @@ public class MainTestArrayStorage {
     private static final SortedArrayStorage ARRAY_STORAGE = new SortedArrayStorage();
 
     public static void main(String[] args) {
-        Resume r1 = new Resume("uuid1");
-        Resume r1new = new Resume("uuid1");
+        Resume r1 = new Resume("uuid1", "name1");
+        Resume r1new = new Resume("uuid1", "name1new");
 
-        Resume r2 = new Resume("uuid2");
-        Resume r2new = new Resume("uuid2");
+        Resume r2 = new Resume("uuid2", "name2");
+        Resume r2new = new Resume("uuid2", "name2new");
 
-        Resume r3 = new Resume("uuid3");
-        Resume r4 = new Resume("uuid4");
-        Resume r5 = new Resume("uuid5");
+        Resume r3 = new Resume("uuid3", "name3");
+        Resume r4 = new Resume("uuid4", "name4");
+        Resume r5 = new Resume("uuid5", "name5");
 
         {
             System.out.println("----------------------------");
