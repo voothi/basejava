@@ -2,7 +2,7 @@ package ru.voothi.webapp.storage;
 
 import ru.voothi.webapp.model.Resume;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,7 +37,7 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected void doDelete(Object searchKey) {
-        map.remove((String)searchKey);
+        map.remove((String) searchKey);
     }
 
     @Override
@@ -52,6 +52,6 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     public List<Resume> doCopyAll() {
-        return Collections.emptyList();
+        return new ArrayList<>(map.values());
     }
 }
