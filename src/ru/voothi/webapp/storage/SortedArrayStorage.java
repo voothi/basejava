@@ -6,10 +6,12 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 public class SortedArrayStorage extends AbstractArrayStorage {
+    public static final ResumeComparator RESUME_COMPARATOR = new ResumeComparator();
+
     @Override
     protected Integer getSearchKey(String uuid) {
         Resume resume = new Resume(uuid, "dummy");
-        return Arrays.binarySearch(storage, 0, size, resume, new ResumeComparator());
+        return Arrays.binarySearch(storage, 0, size, resume, RESUME_COMPARATOR);
     }
 
     @Override
