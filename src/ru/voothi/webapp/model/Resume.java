@@ -5,8 +5,8 @@ import java.util.UUID;
 
 public class Resume implements Comparable<Resume> {
 
-    private final String fullName;
     private final String uuid;
+    private final String fullName;
 
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
@@ -24,31 +24,27 @@ public class Resume implements Comparable<Resume> {
     }
 
     @Override
+    public String toString() {
+        return uuid + '(' + fullName + ')';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
         Resume resume = (Resume) o;
 
-        if (!fullName.equals(resume.fullName)) return false;
         return uuid.equals(resume.uuid);
     }
 
     @Override
     public int hashCode() {
-        int result = fullName.hashCode();
-        result = 31 * result + uuid.hashCode();
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return uuid + '(' + fullName + ')';
+        return uuid.hashCode();
     }
 
     @Override
     public int compareTo(Resume resume) {
-        int cmp = fullName.compareTo(resume.fullName);
-        return cmp != 0 ? cmp : uuid.compareTo(resume.uuid);
+        return uuid.compareTo(resume.uuid);
     }
 }
