@@ -7,6 +7,9 @@ public class TestSingleton {
     }
 
     public static TestSingleton getInstance() {
+        if (instance == null) {
+            instance = new TestSingleton();
+        }
         return instance;
     }
 
