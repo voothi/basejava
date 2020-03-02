@@ -24,16 +24,24 @@ public class Resume implements Comparable<Resume> {
         this.fullName = fullName;
     }
 
+    public String getContact(ContactType type) {
+        return contacts.get(type);
+    }
+
+    public Section getSection(SectionType type) {
+        return sections.get(type);
+    }
+
     public String getUuid() {
         return uuid;
     }
 
-    public String getContacts(ContactType type) {
-        return contacts.get(type);
+    public Map<ContactType, String> getContacts() {
+        return contacts;
     }
 
-    public Section getSections(SectionType type) {
-        return sections.get(type);
+    public Map<SectionType, Section> getSections() {
+        return sections;
     }
 
     @Override
