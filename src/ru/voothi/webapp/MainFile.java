@@ -21,20 +21,10 @@ public class MainFile {
             }
         }
 
-        FileInputStream fis = null;
-        try {
-            fis = new FileInputStream(filePath);
+        try (FileInputStream fis = new FileInputStream(filePath)) {
             System.out.println(fis.read());
         } catch (IOException e) {
-            throw new RuntimeException("", e);
-        } finally {
-            if (fis != null) {
-                try {
-                    fis.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+            throw new RuntimeException(e);
         }
     }
 }
