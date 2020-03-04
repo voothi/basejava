@@ -5,6 +5,7 @@ import ru.voothi.webapp.model.Resume;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -46,8 +47,11 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     protected Resume doGet(File file) {
-//doRead abstract method
-        return null;
+        try {
+            return doRead(file);
+        } catch (IOException e) {
+            throw new StorageException("File read error", file.getName(), e);
+        }
     }
 
     @Override
@@ -55,7 +59,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         try {
             doWrite(resume, file);
         } catch (IOException e) {
-            throw new StorageException(resume.getUuid(), "File write error", e);
+            throw new StorageException("File write error", resume.getUuid(), e);
         }
     }
 
@@ -68,8 +72,15 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     protected List<Resume> doCopyAll() {
-//returns a list of resumes
-        return null;
+        File[] files = directory.listFiles();
+        if (files == null) {
+            throw new StorageException("Directory read error", null);
+        }
+        List<Resume> list = new ArrayList<>(files.length);
+        for (File file : files) {
+            list.add(doGet(file));
+        }
+        return list;
     }
 
     @Override
@@ -92,4 +103,6 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     }
 
     protected abstract void doWrite(Resume resume, File file) throws IOException;
+
+    protected abstract Resume doRead(File file) throws IOException;
 }

@@ -28,10 +28,10 @@ public class MainFile {
             throw new RuntimeException(e);
         }
 
-        pringDirectoryDeeply(dir);
+        printDirectoryDeeply(dir);
     }
 
-    public static void pringDirectoryDeeply(File dir) {
+    public static void printDirectoryDeeply(File dir) {
         File[] files = dir.listFiles();
 
         if (files != null) {
@@ -40,7 +40,7 @@ public class MainFile {
                     System.out.println("File -> " + file.getName());
                 } else if (file.isDirectory()) {
                     System.out.println("Dir  -> " + file.getName());
-                    pringDirectoryDeeply(file);
+                    printDirectoryDeeply(file);
                 }
             }
         }

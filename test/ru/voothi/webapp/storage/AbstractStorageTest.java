@@ -4,7 +4,10 @@ import org.junit.Before;
 import org.junit.Test;
 import ru.voothi.webapp.exception.ExistStorageException;
 import ru.voothi.webapp.exception.NotExistStorageException;
+import ru.voothi.webapp.model.ListSection;
 import ru.voothi.webapp.model.Resume;
+import ru.voothi.webapp.model.SectionType;
+import ru.voothi.webapp.model.TextSection;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,11 +20,26 @@ public abstract class AbstractStorageTest {
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
     private static final String UUID_4 = "uuid4";
-    private static final Resume RESUME_1 = new Resume(UUID_1, "fullName1");
-    private static final Resume RESUME_2 = new Resume(UUID_2, "fullName2");
-    private static final Resume RESUME_3 = new Resume(UUID_3, "fullName3");
-    private static final Resume RESUME_4 = new Resume(UUID_4, "fullName4");
+
+    private static final Resume RESUME_1;
+    private static final Resume RESUME_2;
+    private static final Resume RESUME_3;
+    private static final Resume RESUME_4;
+
     protected Storage storage;
+
+    static {
+        RESUME_1 = new Resume(UUID_1, "fullName1");
+        RESUME_2 = new Resume(UUID_2, "fullName2");
+        RESUME_3 = new Resume(UUID_3, "fullName3");
+        RESUME_4 = new Resume(UUID_4, "fullName4");
+
+        RESUME_1.addSection(SectionType.OBJECTIVE, new TextSection("Ведущий стажировок"));
+        RESUME_1.addSection(SectionType.PERSONAL, new TextSection("Аналитический склад ума"));
+        RESUME_1.addSection(SectionType.QUALIFICATION, new ListSection("С 2013 года: разработка проектов", "Реализация двухфакторной аутентификации"));
+        RESUME_1.addSection(SectionType.EXPERIENCE, );
+        RESUME_1.addSection(SectionType.EDUCATION, );
+    }
 
     protected AbstractStorageTest(Storage storage) {
         this.storage = storage;
