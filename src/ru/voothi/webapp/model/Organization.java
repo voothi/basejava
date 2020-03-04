@@ -1,10 +1,14 @@
 package ru.voothi.webapp.model;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+
+import static ru.voothi.webapp.util.DateUtil.NOW;
+import static ru.voothi.webapp.util.DateUtil.of;
 
 public class Organization {
     private final Link homePage;
@@ -31,12 +35,13 @@ public class Organization {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Organization that = (Organization) o;
-        return homePage.equals(that.homePage);
+        return Objects.equals(homePage, that.homePage) &&
+                Objects.equals(positions, that.positions);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(homePage);
+        return Objects.hash(homePage, positions);
     }
 
     public static class Position {
@@ -44,6 +49,40 @@ public class Organization {
         private final LocalDate endDate;
         private final String title;
         private final String description;
+
+        public Position(int startYear, Month startMonth, String title, String description) {
+            this(of(startYear, startMonth), NOW, title, description);
+        }
+
+        public Position(int startYear, Month startMonth, int endYear, Month endMonth, String title, String description) {
+            this(of(startYear, startMonth), of(endYear, endMonth), title, description);
+        }
+
+        @Override
+        public String toString() {
+            return "Position{" +
+                    "startDate=" + startDate +
+                    ", endDate=" + endDate +
+                    ", title='" + title + '\'' +
+                    ", description='" + description + '\'' +
+                    '}';
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Position position = (Position) o;
+            return Objects.equals(startDate, position.startDate) &&
+                    Objects.equals(endDate, position.endDate) &&
+                    Objects.equals(title, position.title) &&
+                    Objects.equals(description, position.description);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(startDate, endDate, title, description);
+        }
 
         public Position(LocalDate startDate, LocalDate endDate, String title, String description) {
             Objects.requireNonNull(startDate, "startDate must not be null");
