@@ -6,14 +6,16 @@ import ru.voothi.webapp.exception.ExistStorageException;
 import ru.voothi.webapp.exception.NotExistStorageException;
 import ru.voothi.webapp.model.*;
 
+import java.io.File;
 import java.time.Month;
 import java.util.Arrays;
 import java.util.List;
 
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertSame;
+import static junit.framework.TestCase.*;
 
 public abstract class AbstractStorageTest {
+    protected static final File STORAGEDIR = new File("./storage");
+
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
@@ -109,12 +111,12 @@ public abstract class AbstractStorageTest {
     public void update() {
         Resume resume1new = new Resume(UUID_1, "fullName1");
         storage.update(resume1new);
-        assertSame(resume1new, storage.get(UUID_1));
+        assertTrue(resume1new.equals(storage.get(UUID_1)));
     }
 
     @Test(expected = NotExistStorageException.class)
     public void updateNotExist() {
-        storage.update(new Resume("", "dummy"));
+        storage.update(new Resume("dummy", "dummy"));
     }
 
     @Test(expected = NotExistStorageException.class)

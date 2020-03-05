@@ -1,5 +1,6 @@
 package ru.voothi.webapp.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
@@ -10,7 +11,9 @@ import java.util.Objects;
 import static ru.voothi.webapp.util.DateUtil.NOW;
 import static ru.voothi.webapp.util.DateUtil.of;
 
-public class Organization {
+public class Organization implements Serializable {
+    public static final long serialVersionUID = 1L;
+
     private final Link homePage;
     List<Position> positions = new ArrayList<>();
 
@@ -44,7 +47,7 @@ public class Organization {
         return Objects.hash(homePage, positions);
     }
 
-    public static class Position {
+    public static class Position implements Serializable {
         private final LocalDate startDate;
         private final LocalDate endDate;
         private final String title;
@@ -56,6 +59,16 @@ public class Organization {
 
         public Position(int startYear, Month startMonth, int endYear, Month endMonth, String title, String description) {
             this(of(startYear, startMonth), of(endYear, endMonth), title, description);
+        }
+
+        public Position(LocalDate startDate, LocalDate endDate, String title, String description) {
+            Objects.requireNonNull(startDate, "startDate must not be null");
+            Objects.requireNonNull(endDate, "endDate must not be null");
+            Objects.requireNonNull(title, "title must not be null");
+            this.startDate = startDate;
+            this.endDate = endDate;
+            this.title = title;
+            this.description = description;
         }
 
         @Override
@@ -82,16 +95,6 @@ public class Organization {
         @Override
         public int hashCode() {
             return Objects.hash(startDate, endDate, title, description);
-        }
-
-        public Position(LocalDate startDate, LocalDate endDate, String title, String description) {
-            Objects.requireNonNull(startDate, "startDate must not be null");
-            Objects.requireNonNull(endDate, "endDate must not be null");
-            Objects.requireNonNull(title, "title must not be null");
-            this.startDate = startDate;
-            this.endDate = endDate;
-            this.title = title;
-            this.description = description;
         }
     }
 }
