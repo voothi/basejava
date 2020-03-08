@@ -3,16 +3,16 @@ package ru.voothi.webapp.storage;
 import ru.voothi.webapp.exception.StorageException;
 import ru.voothi.webapp.model.Resume;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public abstract class AbstractPathStorage extends AbstractStorage<Path> {
     private Path directory;
@@ -27,12 +27,12 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
 
     @Override
     protected Path getSearchKey(String uuid) {
-
+        return null;
     }
 
     @Override
     protected boolean isExist(Path file) {
-
+        return false;
     }
 
     @Override
@@ -42,7 +42,7 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
 
     @Override
     protected Resume doGet(Path file) {
-
+        return null;
     }
 
     @Override
@@ -57,12 +57,12 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
 
     @Override
     protected List<Resume> doCopyAll() {
-
+        return null;
     }
 
     @Override
     public int size() {
-
+        return 0;
     }
 
     @Override
