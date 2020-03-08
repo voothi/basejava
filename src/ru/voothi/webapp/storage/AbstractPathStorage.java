@@ -3,16 +3,14 @@ package ru.voothi.webapp.storage;
 import ru.voothi.webapp.exception.StorageException;
 import ru.voothi.webapp.model.Resume;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public abstract class AbstractPathStorage extends AbstractStorage<Path> {
     private Path directory;
@@ -27,60 +25,76 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
 
     @Override
     protected Path getSearchKey(String uuid) {
-        return null;
+        return directory.resolve(uuid);
     }
 
     @Override
     protected boolean isExist(Path file) {
-        return false;
+        return Files.isRegularFile(file);
     }
 
     @Override
     protected void doSave(Resume resume, Path file) {
-
+        try {
+            Files.createFile(file);
+        } catch (IOException e) {
+            throw new StorageException("Couldn't create path" + file, getFileName(file), e);
+        }
+        doUpdate(resume, file);
     }
 
     @Override
     protected Resume doGet(Path file) {
-        return null;
+        try {
+            return doRead(new BufferedInputStream(Files.newInputStream(file)));
+        } catch (IOException e) {
+            throw new StorageException("File read error", getFileName(file), e);
+        }
     }
 
     @Override
     protected void doUpdate(Resume resume, Path file) {
-
+        try {
+            doWrite(resume, new BufferedOutputStream(Files.newOutputStream(file)));
+        } catch (IOException e) {
+            throw new StorageException("Path write error", resume.getUuid(), e);
+        }
     }
 
     @Override
-    protected void  doDelete(Path file) {
-
+    protected void doDelete(Path file) {
+        try {
+            Files.delete(file);
+        } catch (IOException e) {
+            throw new StorageException("Path delete error", getFileName(file), e);
+        }
     }
 
     @Override
     protected List<Resume> doCopyAll() {
-        return null;
+        return getFilesList().map(this::doGet).collect(Collectors.toList());
     }
 
     @Override
     public int size() {
-        return 0;
+        return (int) getFilesList().count();
     }
 
     @Override
     public void clear() {
+        getFilesList().forEach(this::doDelete);
+    }
+
+    private Stream<Path> getFilesList() {
         try {
-            List<Path> list = Files.list(directory).collect(Collectors.toList());
-            final PathConsumer action = new PathConsumer();
-            list.forEach(action);
+            return Files.list(directory);
         } catch (IOException e) {
-            throw new StorageException("Path delete error", null, e);
+            throw new StorageException("Dir read error", e);
         }
     }
 
-    private class PathConsumer implements Consumer<Path> {
-        @Override
-        public void accept(Path path) {
-            doDelete(path);
-        }
+    private String getFileName(Path file) {
+        return file.getFileName().toString();
     }
 
     protected abstract void doWrite(Resume resume, OutputStream os) throws IOException;
