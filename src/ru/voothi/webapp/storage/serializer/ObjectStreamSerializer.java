@@ -5,7 +5,7 @@ import ru.voothi.webapp.model.Resume;
 
 import java.io.*;
 
-public class  ObjectStreamSerializer implements StreamSerializer {
+public class ObjectStreamSerializer implements StreamSerializer {
 
     @Override
     public void doWrite(Resume resume, OutputStream os) throws IOException {
