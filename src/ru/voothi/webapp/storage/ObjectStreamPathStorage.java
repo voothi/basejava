@@ -5,7 +5,7 @@ import ru.voothi.webapp.model.Resume;
 
 import java.io.*;
 
-public class ObjectStreamPathStorage extends AbstractPathStorage {
+public class ObjectStreamPathStorage extends PathStorage {
     protected ObjectStreamPathStorage(String directory) {
         super(directory);
     }

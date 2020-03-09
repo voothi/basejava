@@ -2,6 +2,7 @@ package ru.voothi.webapp.storage;
 
 import ru.voothi.webapp.exception.StorageException;
 import ru.voothi.webapp.model.Resume;
+import ru.voothi.webapp.storage.serializer.StreamSerializer;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -12,12 +13,14 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public abstract class AbstractPathStorage extends AbstractStorage<Path> {
+public class PathStorage extends AbstractStorage<Path> {
     private Path directory;
+    private StreamSerializer streamSerializer;
 
-    protected AbstractPathStorage(String dir) {
-        directory = Paths.get(dir);
+    protected PathStorage(String dir, StreamSerializer streamSerializer) {
         Objects.requireNonNull(directory, "directory must not be null");
+        this.streamSerializer = streamSerializer;
+        directory = Paths.get(dir);
         if (!Files.isDirectory(directory) || !Files.isWritable(directory)) {
             throw new IllegalArgumentException(dir + "is not dir or RW");
         }
@@ -46,7 +49,7 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
     @Override
     protected Resume doGet(Path file) {
         try {
-            return doRead(new BufferedInputStream(Files.newInputStream(file)));
+            return streamSerializer.doRead(new BufferedInputStream(Files.newInputStream(file)));
         } catch (IOException e) {
             throw new StorageException("File read error", getFileName(file), e);
         }
@@ -55,7 +58,7 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
     @Override
     protected void doUpdate(Resume resume, Path file) {
         try {
-            doWrite(resume, new BufferedOutputStream(Files.newOutputStream(file)));
+            streamSerializer.doWrite(resume, new BufferedOutputStream(Files.newOutputStream(file)));
         } catch (IOException e) {
             throw new StorageException("Path write error", resume.getUuid(), e);
         }
@@ -96,8 +99,4 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
     private String getFileName(Path file) {
         return file.getFileName().toString();
     }
-
-    protected abstract void doWrite(Resume resume, OutputStream os) throws IOException;
-
-    protected abstract Resume doRead(InputStream is) throws IOException;
 }
