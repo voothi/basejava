@@ -24,10 +24,11 @@ public class MainConcurrency {
 
         System.out.println(thread0.getState());
 
+        final MainConcurrency mainConcurrency = new MainConcurrency();
         for (int i = 0; i < 10000; i++) {
             new Thread(() -> {
                 for (int j = 0; j < 100; j++) {
-                    inc();
+                    mainConcurrency.inc();
                 }
             }).start();
         }
@@ -37,10 +38,8 @@ public class MainConcurrency {
         System.out.println(counter);
     }
 
-    private static void inc() {
+    private synchronized void inc() {
         double a = Math.sin(13.);
-        synchronized (LOCK) {
-            counter++;
-        }
+        counter++;
     }
 }
