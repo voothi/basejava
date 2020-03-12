@@ -38,8 +38,10 @@ public class MainConcurrency {
         System.out.println(counter);
     }
 
-    private synchronized void inc() {
+    private void inc() {
         double a = Math.sin(13.);
-        counter++;
+        synchronized (this) {
+            counter++;
+        }
     }
 }
