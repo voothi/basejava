@@ -24,9 +24,11 @@ public class MainConcurrency {
         System.out.println(thread0.getState());
 
         for (int i = 0; i < 10000; i++) {
-            for (int j = 0; j < 100; j++) {
-                counter++;
-            }
+            new Thread(() -> {
+                for (int j = 0; j < 100; j++) {
+                    counter++;
+                }
+            }).start();
         }
 
         System.out.println(counter);
