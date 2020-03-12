@@ -36,7 +36,11 @@ public class MainConcurrency {
         System.out.println(counter);
     }
 
-    private static synchronized void inc () {
-        counter++;
+    private static void inc () {
+        double a = Math.sin(13.);
+        Object lock = new Object();
+        synchronized (lock) {
+            counter++;
+        }
     }
 }
