@@ -40,6 +40,11 @@ public class MainConcurrency {
 
     private void inc() {
         double a = Math.sin(13.);
+        try {
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         synchronized (this) {
             counter++;
         }
