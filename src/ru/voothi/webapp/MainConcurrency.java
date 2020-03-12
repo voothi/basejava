@@ -1,6 +1,7 @@
 package ru.voothi.webapp;
 
 public class MainConcurrency {
+    public static final Object LOCK = new Object();
     private static int counter;
 
     public static void main(String[] args) throws InterruptedException {
@@ -23,12 +24,10 @@ public class MainConcurrency {
 
         System.out.println(thread0.getState());
 
-        Object lock = new Object();
-
         for (int i = 0; i < 10000; i++) {
             new Thread(() -> {
                 for (int j = 0; j < 100; j++) {
-                    inc(lock);
+                    inc();
                 }
             }).start();
         }
@@ -38,9 +37,9 @@ public class MainConcurrency {
         System.out.println(counter);
     }
 
-    private static void inc(Object lock) {
+    private static void inc() {
         double a = Math.sin(13.);
-        synchronized (lock) {
+        synchronized (LOCK) {
             counter++;
         }
     }
