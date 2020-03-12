@@ -1,7 +1,11 @@
 package ru.voothi.webapp;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainConcurrency {
     public static final Object LOCK = new Object();
+    public static final int THREADS_NUMBER = 10000;
     private static int counter;
 
     public static void main(String[] args) throws InterruptedException {
@@ -11,6 +15,7 @@ public class MainConcurrency {
             @Override
             public void run() {
                 System.out.println(getName() + ", " + getState());
+                throw new IllegalStateException();
             }
         };
         thread0.start();
@@ -25,28 +30,29 @@ public class MainConcurrency {
         System.out.println(thread0.getState());
 
         final MainConcurrency mainConcurrency = new MainConcurrency();
-        for (int i = 0; i < 10000; i++) {
-            new Thread(() -> {
+        List<Thread> threads = new ArrayList<>(THREADS_NUMBER);
+        for (int i = 0; i < THREADS_NUMBER; i++) {
+            final Thread thread = new Thread(() -> {
                 for (int j = 0; j < 100; j++) {
                     mainConcurrency.inc();
                 }
-            }).start();
+            });
+            thread.start();
+            threads.add(thread);
         }
 
-        Thread.sleep(500);
+        threads.forEach(t -> {
+            try {
+                t.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
 
         System.out.println(counter);
     }
 
-    private void inc() {
-        double a = Math.sin(13.);
-        synchronized (this) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            counter++;
-        }
+    private synchronized void inc() {
+        counter++;
     }
 }
