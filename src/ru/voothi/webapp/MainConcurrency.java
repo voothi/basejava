@@ -15,7 +15,6 @@ public class MainConcurrency {
             @Override
             public void run() {
                 System.out.println(getName() + ", " + getState());
-                throw new IllegalStateException();
             }
         };
         thread0.start();
