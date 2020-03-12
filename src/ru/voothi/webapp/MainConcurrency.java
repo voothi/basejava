@@ -9,5 +9,12 @@ public class MainConcurrency {
                 System.out.println(getName());
             }
         }.start();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println(Thread.currentThread().getName());
+            }
+        }).start();
     }
 }
