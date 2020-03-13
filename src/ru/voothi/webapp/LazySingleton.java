@@ -1,7 +1,7 @@
 package ru.voothi.webapp;
 
 public class LazySingleton {
-    public static LazySingleton INSTANCE;
+    volatile public static LazySingleton INSTANCE;
 
     private LazySingleton() {
     }
