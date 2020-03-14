@@ -1,13 +1,18 @@
 package ru.voothi.webapp;
 
-import java.util.concurrent.*;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class MainConcurrency {
     public static final Object LOCK = new Object();
     public static final int THREADS_NUMBER = 10000;
     private static int counter;
+    public static final Lock lock = new ReentrantLock();
 
-    public static void main(String[] args) throws InterruptedException, ExecutionException {
+    public static void main(String[] args) throws InterruptedException {
         System.out.println(Thread.currentThread().getName());
 
         final Thread thread0 = new Thread() {
@@ -29,16 +34,14 @@ public class MainConcurrency {
 
         final MainConcurrency mainConcurrency = new MainConcurrency();
         CountDownLatch countDownLatch = new CountDownLatch(THREADS_NUMBER);
-        final ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-        CompletionService completionService = new ExecutorCompletionService(executorService);
+        final ExecutorService executorService = Executors.newCachedThreadPool();
         for (int i = 0; i < THREADS_NUMBER; i++) {
-            Future<?> future = executorService.submit(() -> {
+            executorService.submit(() -> {
                 for (int j = 0; j < 100; j++) {
                     mainConcurrency.inc();
                 }
                 countDownLatch.countDown();
             });
-            completionService.poll();
         }
 
         countDownLatch.await();
@@ -46,7 +49,12 @@ public class MainConcurrency {
         System.out.println(counter);
     }
 
-    private synchronized void inc() {
-        counter++;
+    private void inc() {
+        lock.lock();
+        try {
+            counter++;
+        } finally {
+            lock.unlock();
+        }
     }
 }
