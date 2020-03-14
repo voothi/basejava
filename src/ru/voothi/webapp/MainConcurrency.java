@@ -31,7 +31,7 @@ public class MainConcurrency {
 
         final MainConcurrency mainConcurrency = new MainConcurrency();
         CountDownLatch countDownLatch = new CountDownLatch(THREADS_NUMBER);
-        final ExecutorService executorService = Executors.newCachedThreadPool();
+        final ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
         for (int i = 0; i < THREADS_NUMBER; i++) {
             executorService.submit(() -> {
                 for (int j = 0; j < 100; j++) {
