@@ -3,18 +3,13 @@ package ru.voothi.webapp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 public class MainStreamApi {
     private static List<Integer> oddOrEven(List<Integer> integers) {
-        AtomicInteger sum = new AtomicInteger();
         return integers.stream()
-                .collect(Collectors.partitioningBy(i -> {
-                    sum.addAndGet(i);
-                    return i % 2 == 0;
-                }))
-                .get(sum.get() % 2 != 0);
+                .collect(Collectors.partitioningBy(i -> i % 2 == 0))
+                .get(integers.stream().mapToInt(Integer::intValue).sum() % 2 != 0);
     }
 
     private static int minValue(int[] values) {
