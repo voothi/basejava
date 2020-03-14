@@ -1,15 +1,13 @@
 package ru.voothi.webapp;
 
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 
 public class MainConcurrency {
     public static final Object LOCK = new Object();
     public static final int THREADS_NUMBER = 10000;
     private static int counter;
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, ExecutionException {
         System.out.println(Thread.currentThread().getName());
 
         final Thread thread0 = new Thread() {
@@ -33,12 +31,14 @@ public class MainConcurrency {
         CountDownLatch countDownLatch = new CountDownLatch(THREADS_NUMBER);
         final ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
         for (int i = 0; i < THREADS_NUMBER; i++) {
-            executorService.submit(() -> {
+            Future<?> future = executorService.submit(() -> {
                 for (int j = 0; j < 100; j++) {
                     mainConcurrency.inc();
                 }
                 countDownLatch.countDown();
             });
+            future.isDone();
+            future.get();
         }
 
         countDownLatch.await();
