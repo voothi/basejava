@@ -1,6 +1,8 @@
 package ru.voothi.webapp;
 
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class MainConcurrency {
     public static final Object LOCK = new Object();
@@ -29,17 +31,18 @@ public class MainConcurrency {
 
         final MainConcurrency mainConcurrency = new MainConcurrency();
         CountDownLatch countDownLatch = new CountDownLatch(THREADS_NUMBER);
+        final ExecutorService executorService = Executors.newCachedThreadPool();
         for (int i = 0; i < THREADS_NUMBER; i++) {
-            final Thread thread = new Thread(() -> {
+            executorService.submit(() -> {
                 for (int j = 0; j < 100; j++) {
                     mainConcurrency.inc();
                 }
                 countDownLatch.countDown();
             });
-            thread.start();
         }
 
         countDownLatch.await();
+        executorService.shutdown();
         System.out.println(counter);
     }
 
