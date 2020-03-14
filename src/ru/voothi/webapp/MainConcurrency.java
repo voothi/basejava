@@ -30,6 +30,7 @@ public class MainConcurrency {
         final MainConcurrency mainConcurrency = new MainConcurrency();
         CountDownLatch countDownLatch = new CountDownLatch(THREADS_NUMBER);
         final ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+        CompletionService completionService = new ExecutorCompletionService(executorService);
         for (int i = 0; i < THREADS_NUMBER; i++) {
             Future<?> future = executorService.submit(() -> {
                 for (int j = 0; j < 100; j++) {
@@ -37,8 +38,7 @@ public class MainConcurrency {
                 }
                 countDownLatch.countDown();
             });
-            future.isDone();
-            future.get();
+            completionService.poll();
         }
 
         countDownLatch.await();
