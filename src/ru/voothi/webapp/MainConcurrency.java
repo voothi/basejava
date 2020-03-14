@@ -1,16 +1,18 @@
 package ru.voothi.webapp;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class MainConcurrency {
     public static final Object LOCK = new Object();
     public static final int THREADS_NUMBER = 10000;
     private static int counter;
-    public static final Lock lock = new ReentrantLock();
+    private final AtomicInteger atomicInteger = new AtomicInteger(0);
+    public static final SimpleDateFormat sdf = new SimpleDateFormat();
 
     public static void main(String[] args) throws InterruptedException {
         System.out.println(Thread.currentThread().getName());
@@ -39,6 +41,7 @@ public class MainConcurrency {
             executorService.submit(() -> {
                 for (int j = 0; j < 100; j++) {
                     mainConcurrency.inc();
+                    System.out.println(sdf.format(new Date()));
                 }
                 countDownLatch.countDown();
             });
@@ -46,15 +49,11 @@ public class MainConcurrency {
 
         countDownLatch.await();
         executorService.shutdown();
-        System.out.println(counter);
+        System.out.println(mainConcurrency.atomicInteger.get());
     }
 
     private void inc() {
-        lock.lock();
-        try {
-            counter++;
-        } finally {
-            lock.unlock();
-        }
+        atomicInteger.incrementAndGet();
+        counter++;
     }
 }
