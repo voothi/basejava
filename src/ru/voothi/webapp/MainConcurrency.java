@@ -12,7 +12,12 @@ public class MainConcurrency {
     public static final int THREADS_NUMBER = 10000;
     private static int counter;
     private final AtomicInteger atomicInteger = new AtomicInteger(0);
-    public static final SimpleDateFormat sdf = new SimpleDateFormat();
+    public static final ThreadLocal<SimpleDateFormat> threadLocal = new ThreadLocal<SimpleDateFormat>() {
+        @Override
+        protected SimpleDateFormat initialValue() {
+            return new SimpleDateFormat();
+        }
+    };
 
     public static void main(String[] args) throws InterruptedException {
         System.out.println(Thread.currentThread().getName());
@@ -41,7 +46,7 @@ public class MainConcurrency {
             executorService.submit(() -> {
                 for (int j = 0; j < 100; j++) {
                     mainConcurrency.inc();
-                    System.out.println(sdf.format(new Date()));
+                    System.out.println(threadLocal.get().format(new Date()));
                 }
                 countDownLatch.countDown();
             });
