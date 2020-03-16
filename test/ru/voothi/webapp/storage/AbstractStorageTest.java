@@ -17,7 +17,6 @@ import static junit.framework.TestCase.assertTrue;
 
 public abstract class AbstractStorageTest {
     protected static final File STORAGEDIR = Config.getInstance().getStorageDir();
-
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
