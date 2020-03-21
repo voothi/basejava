@@ -1,13 +1,11 @@
 package ru.voothi.webapp.storage;
 
+import ru.voothi.webapp.exception.NotExistStorageException;
 import ru.voothi.webapp.exception.StorageException;
 import ru.voothi.webapp.model.Resume;
 import ru.voothi.webapp.sql.ConnectionFactory;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 
 public class SqlStorage implements Storage {
@@ -24,12 +22,30 @@ public class SqlStorage implements Storage {
 
     @Override
     public void save(Resume resume) {
-
+        try (final Connection connection = connectionFactory.getConnection();
+             final PreparedStatement ps =
+                     connection.prepareStatement("insert into resume (uuid, full_name) values (?, ?)")) {
+            ps.setString(1, resume.getUuid());
+            ps.setString(2, resume.getFullName());
+            ps.execute();
+        } catch (SQLException e) {
+            throw new StorageException(e);
+        }
     }
 
     @Override
     public Resume get(String uuid) {
-        return null;
+        try (final Connection connection = connectionFactory.getConnection();
+             final PreparedStatement ps = connection.prepareStatement("select * from resume where uuid = ?")) {
+            ps.setString(1, uuid);
+            final ResultSet rs = ps.executeQuery();
+            if (!rs.next()) {
+                throw new NotExistStorageException(uuid);
+            }
+            return new Resume(uuid, rs.getString("full_name"));
+        } catch (SQLException e) {
+            throw new StorageException(e);
+        }
     }
 
     @Override
@@ -49,8 +65,8 @@ public class SqlStorage implements Storage {
 
     @Override
     public void clear() {
-        try (Connection conn = connectionFactory.getConnection();
-             PreparedStatement ps = conn.prepareStatement("delete from resume");) {
+        try (Connection connection = connectionFactory.getConnection();
+             PreparedStatement ps = connection.prepareStatement("delete from resume");) {
             ps.execute();
         } catch (SQLException e) {
             throw new StorageException(e);
