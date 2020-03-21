@@ -3,7 +3,6 @@ package ru.voothi.webapp.storage;
 import ru.voothi.webapp.exception.NotExistStorageException;
 import ru.voothi.webapp.exception.StorageException;
 import ru.voothi.webapp.model.Resume;
-import ru.voothi.webapp.sql.ConnectionFactory;
 import ru.voothi.webapp.sql.SqlHelper;
 
 import java.sql.*;
@@ -32,17 +31,14 @@ public class SqlStorage implements Storage {
 
     @Override
     public Resume get(String uuid) {
-        try (final Connection connection = connectionFactory.getConnection();
-             final PreparedStatement ps = connection.prepareStatement("select * from resume where uuid = ?")) {
+        return sqlHelper.execute("SELECT * FROM resume r WHERE r.uuid = ?", ps -> {
             ps.setString(1, uuid);
-            final ResultSet rs = ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
             if (!rs.next()) {
                 throw new NotExistStorageException(uuid);
             }
             return new Resume(uuid, rs.getString("full_name"));
-        } catch (SQLException e) {
-            throw new StorageException(e);
-        }
+        });
     }
 
     @Override
