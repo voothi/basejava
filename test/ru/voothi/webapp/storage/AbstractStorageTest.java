@@ -5,7 +5,6 @@ import org.junit.Test;
 import ru.voothi.webapp.Config;
 import ru.voothi.webapp.exception.ExistStorageException;
 import ru.voothi.webapp.exception.NotExistStorageException;
-import ru.voothi.webapp.model.ContactType;
 import ru.voothi.webapp.model.Resume;
 
 import java.io.File;
@@ -67,8 +66,8 @@ public abstract class AbstractStorageTest {
 //                                        1993, Month.JULY,
 //                                        "Инженер (программист Fortran, C)", ""))));
 
-        RESUME_2.addContact(ContactType.PHONE, "+7(999) 999-99999");
-        RESUME_2.addContact(ContactType.SKYPE, "skype_contact2");
+//        RESUME_2.addContact(ContactType.PHONE, "+7(999) 999-99999");
+//        RESUME_2.addContact(ContactType.SKYPE, "skype_contact2");
     }
 
     protected Storage storage;
