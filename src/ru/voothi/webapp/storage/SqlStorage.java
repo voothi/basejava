@@ -4,20 +4,17 @@ import ru.voothi.webapp.exception.NotExistStorageException;
 import ru.voothi.webapp.exception.StorageException;
 import ru.voothi.webapp.model.Resume;
 import ru.voothi.webapp.sql.ConnectionFactory;
+import ru.voothi.webapp.sql.SqlHelper;
 
 import java.sql.*;
 import java.util.List;
 
 public class SqlStorage implements Storage {
-    ConnectionFactory connectionFactory;
+    public final SqlHelper sqlHelper;
+
 
     public SqlStorage(String dbUrl, String dbUser, String dbPassword) {
-        connectionFactory = new ConnectionFactory() {
-            @Override
-            public Connection getConnection() throws SQLException {
-                return DriverManager.getConnection(dbUrl, dbUser, dbPassword);
-            }
-        };
+        sqlHelper = new SqlHelper(() -> DriverManager.getConnection(dbUrl, dbUser, dbPassword));
     }
 
     @Override
@@ -65,12 +62,7 @@ public class SqlStorage implements Storage {
 
     @Override
     public void clear() {
-        try (Connection connection = connectionFactory.getConnection();
-             PreparedStatement ps = connection.prepareStatement("delete from resume");) {
-            ps.execute();
-        } catch (SQLException e) {
-            throw new StorageException(e);
-        }
+        sqlHelper.execute("delete from resume");
     }
 
     @Override
