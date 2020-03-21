@@ -1,11 +1,12 @@
 package ru.voothi.webapp.storage;
 
 import ru.voothi.webapp.exception.NotExistStorageException;
-import ru.voothi.webapp.exception.StorageException;
 import ru.voothi.webapp.model.Resume;
 import ru.voothi.webapp.sql.SqlHelper;
 
-import java.sql.*;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SqlStorage implements Storage {
@@ -18,20 +19,17 @@ public class SqlStorage implements Storage {
 
     @Override
     public void save(Resume resume) {
-        try (final Connection connection = connectionFactory.getConnection();
-             final PreparedStatement ps =
-                     connection.prepareStatement("insert into resume (uuid, full_name) values (?, ?)")) {
+        sqlHelper.<Void>execute("insert into resume (uuid, full_name) values (?, ?)", ps -> {
             ps.setString(1, resume.getUuid());
             ps.setString(2, resume.getFullName());
             ps.execute();
-        } catch (SQLException e) {
-            throw new StorageException(e);
-        }
+            return null;
+        });
     }
 
     @Override
     public Resume get(String uuid) {
-        return sqlHelper.execute("SELECT * FROM resume r WHERE r.uuid = ?", ps -> {
+        return sqlHelper.execute("select * from resume r where r.uuid = ?", ps -> {
             ps.setString(1, uuid);
             ResultSet rs = ps.executeQuery();
             if (!rs.next()) {
@@ -43,17 +41,33 @@ public class SqlStorage implements Storage {
 
     @Override
     public void update(Resume resume) {
-
+        sqlHelper.execute("update resume set full_name = ? where uuid = ?", ps -> {
+            ps.setString(1, resume.getFullName());
+            ps.setString(2, resume.getUuid());
+            if (ps.executeUpdate() == 0) {
+                throw new NotExistStorageException(resume.getUuid());
+            }
+            return null;
+        });
     }
 
     @Override
     public void delete(String uuid) {
-
+        sqlHelper.execute("delete from resume where uuid = ?", ps -> {
+            ps.setString(1, uuid);
+            if (ps.executeUpdate() == 0) {
+                throw new NotExistStorageException(uuid);
+            }
+            return null;
+        });
     }
 
     @Override
     public int size() {
-        return 0;
+        return sqlHelper.execute("select count(*) from resume", st -> {
+            ResultSet rs = st.executeQuery();
+            return rs.next() ? rs.getInt(1) : 0;
+        });
     }
 
     @Override
@@ -63,6 +77,13 @@ public class SqlStorage implements Storage {
 
     @Override
     public List<Resume> getAllSorted() {
-        return null;
+        return sqlHelper.execute("select * from resume r order by full_name,uuid", ps -> {
+            ResultSet rs = ps.executeQuery();
+            List<Resume> resumes = new ArrayList<>();
+            while (rs.next()) {
+                resumes.add(new Resume(rs.getString("uuid"), rs.getString("full_name")));
+            }
+            return resumes;
+        });
     }
 }
