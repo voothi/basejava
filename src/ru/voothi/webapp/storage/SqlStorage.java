@@ -1,10 +1,12 @@
 package ru.voothi.webapp.storage;
 
+import ru.voothi.webapp.exception.StorageException;
 import ru.voothi.webapp.model.Resume;
 import ru.voothi.webapp.sql.ConnectionFactory;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -47,7 +49,12 @@ public class SqlStorage implements Storage {
 
     @Override
     public void clear() {
-
+        try (Connection conn = connectionFactory.getConnection();
+             PreparedStatement ps = conn.prepareStatement("delete from resume");) {
+            ps.execute();
+        } catch (SQLException e) {
+            throw new StorageException(e);
+        }
     }
 
     @Override
