@@ -90,8 +90,7 @@ public class SqlStorage implements Storage {
                 ps -> {
                     ResultSet rs = ps.executeQuery();
                     return rs.next() ? rs.getInt(1) : 0;
-                }
-        );
+                });
     }
 
     @Override
