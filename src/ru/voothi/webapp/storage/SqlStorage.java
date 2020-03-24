@@ -3,12 +3,16 @@ package ru.voothi.webapp.storage;
 import ru.voothi.webapp.exception.NotExistStorageException;
 import ru.voothi.webapp.model.ContactType;
 import ru.voothi.webapp.model.Resume;
+import ru.voothi.webapp.sql.SqlExecutor;
 import ru.voothi.webapp.sql.SqlHelper;
 
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class SqlStorage implements Storage {
     public final SqlHelper sqlHelper;
@@ -29,6 +33,18 @@ public class SqlStorage implements Storage {
                     ps.execute();
                     return null;
                 });
+        for (Map.Entry<ContactType, String> e : resume.getContacts().entrySet()) {
+            sqlHelper.<Void>execute("" +
+                            "insert into contact (resume_uuid, type, value) " +
+                            "values (?, ?, ?)",
+                    ps -> {
+                        ps.setString(1, resume.getUuid());
+                        ps.setString(2, e.getKey().name());
+                        ps.setString(2, e.getValue());
+                        ps.execute();
+                        return null;
+                    });
+        }
     }
 
     @Override
@@ -38,19 +54,22 @@ public class SqlStorage implements Storage {
                         "left join contact c " +
                         "on r.uuid = c.resume_uuid " +
                         "where r.uuid = ?",
-                ps -> {
-                    ps.setString(1, uuid);
-                    ResultSet rs = ps.executeQuery();
-                    if (!rs.next()) {
-                        throw new NotExistStorageException(uuid);
+                new SqlExecutor<Resume>() {
+                    @Override
+                    public Resume execute(PreparedStatement ps) throws SQLException {
+                        ps.setString(1, uuid);
+                        ResultSet rs = ps.executeQuery();
+                        if (!rs.next()) {
+                            throw new NotExistStorageException(uuid);
+                        }
+                        Resume resume = new Resume(uuid, rs.getString("full_name"));
+                        do {
+                            final String value = rs.getString("value");
+                            final ContactType type = ContactType.valueOf(rs.getString("type"));
+                            resume.addContact(type, value);
+                        } while (rs.next());
+                        return resume;
                     }
-                    Resume resume = new Resume(uuid, rs.getString("full_name"));
-                    do {
-                        final String value = rs.getString("value");
-                        final ContactType type = ContactType.valueOf(rs.getString("type"));
-                        resume.addContact(type, value);
-                    } while (rs.next());
-                    return resume;
                 });
     }
 
