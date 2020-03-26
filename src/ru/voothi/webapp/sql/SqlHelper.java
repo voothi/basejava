@@ -12,7 +12,12 @@ public class SqlHelper {
     }
 
     public void execute(String sql) {
-        execute(sql, PreparedStatement::execute);
+        execute(sql, new SqlExecutor<Boolean>() {
+            @Override
+            public Boolean execute(PreparedStatement statement) throws SQLException {
+                return statement.execute();
+            }
+        });
     }
 
     public <T> T execute(String sql, SqlExecutor<T> executor) {
