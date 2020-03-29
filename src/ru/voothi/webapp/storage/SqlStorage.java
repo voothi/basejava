@@ -6,10 +6,7 @@ import ru.voothi.webapp.model.Resume;
 import ru.voothi.webapp.sql.ConnectionFactory;
 import ru.voothi.webapp.sql.SqlHelper;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -29,26 +26,30 @@ public class SqlStorage implements Storage {
 
     @Override
     public void save(Resume resume) {
-        sqlHelper.<Void>execute("" +
-                        "insert into resume (uuid, full_name) " +
-                        "values (?, ?)",
-                ps -> {
-                    ps.setString(1, resume.getUuid());
-                    ps.setString(2, resume.getFullName());
-                    ps.execute();
-                    return null;
-                });
-        for (Map.Entry<ContactType, String> e : resume.getContacts().entrySet()) {
-            sqlHelper.<Void>execute("" +
-                            "insert into contact (resume_uuid, type, value) " +
-                            "values (?, ?, ?)",
-                    ps -> {
+        sqlHelper.transactionalExecute(connection -> {
+                    try (PreparedStatement ps =
+                                 connection.prepareStatement("" +
+                                         "insert into resume (uuid, full_name) " +
+                                         "VALUES (?, ?)")) {
                         ps.setString(1, resume.getUuid());
-                        ps.setString(2, e.getKey().name());
-                        ps.setString(3, e.getValue());
-                        return null;
-                    });
-        }
+                        ps.setString(2, resume.getFullName());
+                        ps.execute();
+                    }
+                    try (PreparedStatement ps =
+                                 connection.prepareStatement("" +
+                                         "insert into contact (resume_uuid, type, value) " +
+                                         "VALUES (?, ?, ?)")) {
+                        for (Map.Entry<ContactType, String> e : resume.getContacts().entrySet()) {
+                            ps.setString(1, resume.getUuid());
+                            ps.setString(2, e.getKey().name());
+                            ps.setString(3, e.getValue());
+                            ps.addBatch();
+                        }
+                        ps.executeBatch();
+                    }
+                    return null;
+                }
+        );
     }
 
     @Override
