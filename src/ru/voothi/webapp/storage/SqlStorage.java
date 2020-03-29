@@ -45,8 +45,7 @@ public class SqlStorage implements Storage {
                     ps -> {
                         ps.setString(1, resume.getUuid());
                         ps.setString(2, e.getKey().name());
-                        ps.setString(2, e.getValue());
-                        ps.execute();
+                        ps.setString(3, e.getValue());
                         return null;
                     });
         }
@@ -124,7 +123,7 @@ public class SqlStorage implements Storage {
     public List<Resume> getAllSorted() {
         return sqlHelper.execute("" +
                         "select * from resume r " +
-                        "order by full_name,uuid",
+                        "order by full_name, uuid",
                 ps -> {
                     ResultSet rs = ps.executeQuery();
                     List<Resume> resumes = new ArrayList<>();
