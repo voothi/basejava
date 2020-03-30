@@ -1,5 +1,6 @@
 package ru.voothi.webapp.storage;
 
+import com.google.gson.internal.LinkedTreeMap;
 import ru.voothi.webapp.exception.NotExistStorageException;
 import ru.voothi.webapp.model.ContactType;
 import ru.voothi.webapp.model.Resume;
@@ -8,7 +9,6 @@ import ru.voothi.webapp.sql.SqlHelper;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -120,7 +120,7 @@ public class SqlStorage implements Storage {
                         "order by full_name, uuid",
                 ps -> {
                     ResultSet rs = ps.executeQuery();
-                    Map<String, Resume> map = new HashMap<>();
+                    Map<String, Resume> map = new LinkedTreeMap<>();
                     while (rs.next()) {
                         String uuid = rs.getString("uuid");
                         Resume resume = map.get(uuid);
