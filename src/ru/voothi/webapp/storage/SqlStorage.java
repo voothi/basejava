@@ -8,6 +8,7 @@ import ru.voothi.webapp.sql.SqlHelper;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -56,9 +57,7 @@ public class SqlStorage implements Storage {
                     }
                     Resume resume = new Resume(uuid, rs.getString("full_name"));
                     do {
-                        final String value = rs.getString("value");
-                        final ContactType type = ContactType.valueOf(rs.getString("type"));
-                        resume.addContact(type, value);
+                        addContact(rs, resume);
                     } while (rs.next());
                     return resume;
                 });
@@ -117,15 +116,21 @@ public class SqlStorage implements Storage {
     public List<Resume> getAllSorted() {
         return sqlHelper.execute("" +
                         "select * from resume r " +
+                        "left join contact c ON r.uuid = c.resume_uuid " +
                         "order by full_name, uuid",
                 ps -> {
                     ResultSet rs = ps.executeQuery();
-                    List<Resume> resumes = new ArrayList<>();
+                    Map<String, Resume> map = new HashMap<>();
                     while (rs.next()) {
-                        resumes.add(new Resume(rs.getString("uuid"),
-                                rs.getString("full_name")));
+                        String uuid = rs.getString("uuid");
+                        Resume resume = map.get(uuid);
+                        if (resume == null) {
+                            resume = new Resume(uuid, rs.getString("full_name"));
+                            map.put(uuid, resume);
+                        }
+                        addContact(rs, resume);
                     }
-                    return resumes;
+                    return new ArrayList<>(map.values());
                 });
     }
 
@@ -153,5 +158,12 @@ public class SqlStorage implements Storage {
                     ps.execute();
                     return null;
                 });
+    }
+
+    private void addContact(ResultSet rs, Resume resume) throws SQLException {
+        String value = rs.getString("value");
+        if (value != null) {
+            resume.addContact(ContactType.valueOf(rs.getString("type")), value);
+        }
     }
 }
