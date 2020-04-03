@@ -1,14 +1,17 @@
 package ru.voothi.webapp.storage;
 
-import com.google.gson.internal.LinkedTreeMap;
 import ru.voothi.webapp.exception.NotExistStorageException;
 import ru.voothi.webapp.model.ContactType;
 import ru.voothi.webapp.model.Resume;
+import ru.voothi.webapp.model.Section;
+import ru.voothi.webapp.model.SectionType;
 import ru.voothi.webapp.sql.ConnectionFactory;
 import ru.voothi.webapp.sql.SqlHelper;
+import ru.voothi.webapp.util.JsonParser;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -114,24 +117,35 @@ public class SqlStorage implements Storage {
 
     @Override
     public List<Resume> getAllSorted() {
-        return sqlHelper.execute("" +
-                        "select * from resume r " +
-                        "left join contact c ON r.uuid = c.resume_uuid " +
-                        "order by full_name, uuid",
-                ps -> {
-                    ResultSet rs = ps.executeQuery();
-                    Map<String, Resume> map = new LinkedTreeMap<>();
-                    while (rs.next()) {
-                        String uuid = rs.getString("uuid");
-                        Resume resume = map.get(uuid);
-                        if (resume == null) {
-                            resume = new Resume(uuid, rs.getString("full_name"));
-                            map.put(uuid, resume);
-                        }
-                        addContact(rs, resume);
-                    }
-                    return new ArrayList<>(map.values());
-                });
+        return sqlHelper.transactionalExecute(conn -> {
+            Map<String, Resume> resumes = new LinkedHashMap<>();
+
+            try (PreparedStatement ps = conn.prepareStatement("select * from resume order by full_name, uuid")) {
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    String uuid = rs.getString("uuid");
+                    resumes.put(uuid, new Resume(uuid, rs.getString("full_name")));
+                }
+            }
+
+            try (PreparedStatement ps = conn.prepareStatement("select * from contact")) {
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    Resume resume = resumes.get(rs.getString("resume_uuid"));
+                    addContact(rs, resume);
+                }
+            }
+
+            try (PreparedStatement ps = conn.prepareStatement("select * from section")) {
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    Resume r = resumes.get(rs.getString("resume_uuid"));
+                    addSection(rs, r);
+                }
+            }
+
+            return new ArrayList<>(resumes.values());
+        });
     }
 
     private void insertContact(Connection connection, Resume resume) throws SQLException {
@@ -164,6 +178,14 @@ public class SqlStorage implements Storage {
         String value = rs.getString("value");
         if (value != null) {
             resume.addContact(ContactType.valueOf(rs.getString("type")), value);
+        }
+    }
+
+    private void addSection(ResultSet rs, Resume resume) throws SQLException {
+        String content = rs.getString("content");
+        if (content != null) {
+            SectionType type = SectionType.valueOf(rs.getString("type"));
+            resume.addSection(type, JsonParser.read(content, Section.class));
         }
     }
 }
