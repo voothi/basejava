@@ -19,7 +19,6 @@ import static ru.voothi.webapp.TestData.*;
 public abstract class AbstractStorageTest {
     protected static final File STORAGEDIR = Config.getInstance().getStorageDir();
 
-
     protected Storage storage;
 
     protected AbstractStorageTest(Storage storage) {
