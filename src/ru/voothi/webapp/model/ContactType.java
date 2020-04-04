@@ -2,8 +2,18 @@ package ru.voothi.webapp.model;
 
 public enum ContactType {
     PHONE("Тел."),
-    SKYPE("Skype"),
-    EMAIL("Почта"),
+    SKYPE("Skype") {
+        @Override
+        public String toHtml(String value) {
+            return "<a href='skype:" + value + "'>" + value + "</a>";
+        }
+    },
+    EMAIL("Почта") {
+        @Override
+        public String toHtml(String value) {
+            return "<a href='mailto:" + value + "'>" + value + "</a>";
+        }
+    },
     LINKEDIN("Профиль LinkedIn"),
     GITHUB("Профиль GitHub"),
     STACKOVERFLOW("Профиль StackOverflow"),
@@ -17,5 +27,9 @@ public enum ContactType {
 
     public String getTitle() {
         return title;
+    }
+
+    public String toHtml(String value) {
+        return title + ": " + value;
     }
 }
