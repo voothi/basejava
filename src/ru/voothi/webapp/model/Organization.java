@@ -19,7 +19,8 @@ import static ru.voothi.webapp.util.DateUtil.of;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Organization implements Serializable {
     public static final long serialVersionUID = 1L;
-    List<Position> positions = new ArrayList<>();
+    public static final Organization EMPTY = new Organization("", "", Position.EMPTY);
+    private List<Position> positions = new ArrayList<>();
     private Link homePage;
 
     public Organization() {
@@ -65,6 +66,8 @@ public class Organization implements Serializable {
 
     @XmlAccessorType(XmlAccessType.FIELD)
     public static class Position implements Serializable {
+        public static final Position EMPTY = new Position();
+
         @XmlJavaTypeAdapter(LocalDateAdapter.class)
         private LocalDate startDate;
         @XmlJavaTypeAdapter(LocalDateAdapter.class)
