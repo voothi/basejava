@@ -19,7 +19,9 @@ import static ru.voothi.webapp.util.DateUtil.of;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Organization implements Serializable {
     public static final long serialVersionUID = 1L;
+
     public static final Organization EMPTY = new Organization("", "", Position.EMPTY);
+
     private List<Position> positions = new ArrayList<>();
     private Link homePage;
 
