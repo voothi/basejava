@@ -89,6 +89,7 @@
                 </c:when>
             </c:choose>
         </c:forEach>
+        <button type="submit">Сохранить</button>
         <button onclick="window.history.back()">Отменить</button>
     </form>
 </section>
