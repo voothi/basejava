@@ -22,9 +22,9 @@ public class TestData {
         RESUME_3 = new Resume(UUID_3, "Name3");
         RESUME_4 = new Resume(UUID_4, "Name4");
 
-        RESUME_1.setContact(ContactType.PHONE, "+7(921) 855-0482");
-        RESUME_1.setContact(ContactType.SKYPE, "grigory.kislin");
-        RESUME_1.setContact(ContactType.EMAIL, "gkislin@yandex.ru");
+        RESUME_1.setContact(ContactType.PHONE, "+7(921) 111-1111");
+        RESUME_1.setContact(ContactType.SKYPE, "skype.new");
+        RESUME_1.setContact(ContactType.EMAIL, "email@yandex.ru");
         RESUME_1.setContact(ContactType.LINKEDIN, "https://www.linkedin.com/in/gkislin");
         RESUME_1.setContact(ContactType.GITHUB, "https://github.com/gkislin");
         RESUME_1.setContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473");
