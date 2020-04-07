@@ -1,7 +1,6 @@
 .idea
 out
-*.iml
 log
-
-
-
+/config/resumes.properties
+coverage-error.log
+storage/

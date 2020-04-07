@@ -9,9 +9,6 @@ create table resume
 
 comment on table resume is 'Resume Table';
 
-alter table resume
-    owner to postgres;
-
 -- auto-generated definition
 create table contact
 (
@@ -25,9 +22,6 @@ create table contact
             references resume
             on delete cascade
 );
-
-alter table contact
-    owner to postgres;
 
 -- auto-generated definition
 create unique index contact_uuid_type_index
@@ -45,9 +39,6 @@ create table section
             references resume
             on delete cascade
 );
-
-alter table section
-    owner to postgres;
 
 create unique index section_uuid_type_index
     on section (resume_uuid, type);
